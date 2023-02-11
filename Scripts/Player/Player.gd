@@ -102,11 +102,17 @@ func move():
 		emit_signal("landed")
 	
 func update_animations(input_vector: Vector2):
+	var movement_sign = sign(input_vector.x)
+	var gun_pointing_sign = sign(get_local_mouse_position().x)
+	
+	sprite.scale.x = gun_pointing_sign
+	
 	if input_vector.x != 0:
-		sprite.scale.x = sign(input_vector.x)
 		animator.play("Run")
+		animator.playback_speed = movement_sign * gun_pointing_sign
 	else:
 		animator.play("Idle")
+		animator.playback_speed = 1
 		
 	if not is_on_floor():
 		animator.play("Jump")

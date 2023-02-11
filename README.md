@@ -15,6 +15,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [TileMap](#tilemap)
 	- [Slope Tiles](#slope-tiles)
 	- [Dust VFX](#dust-vfx)
+	- [Player Gun](#player-gun)
   
 ## Screenshots
 
@@ -195,3 +196,26 @@ func update_animations(input_vector: Vector2):
   - Add signals for `jumped` and `landed` to the `Player` script.
   - In the run animation add a track to call `spawn_dust_effect` in the `DustSpawner`, everytime the player steps on the floor.
   - Connect the `jumped` and `landed` signals from the `Player` into the `DustSpawner`, and make them `spawn_dust_effect`.
+
+## Player Gun
+
+- Player Gun
+  - New `PlayerGun` scene with a child `Sprite` and also a `Position2D` to mark the origin of the projectiles.
+  - `PlayerGun` script that makes the gun face the mouse using `rotation = player.get_local_mouse_position().angle()`
+- Player
+  - Make the sprite face the mouse using the local mouse position sign.
+  - Make the animation play in reverse if the movement sign and the gun pointing sign mismatch.
+
+```py
+var movement_sign = sign(input_vector.x)
+var gun_pointing_sign = sign(get_local_mouse_position().x)
+
+sprite.scale.x = gun_pointing_sign
+
+if input_vector.x != 0:
+	animator.play("Run")
+	animator.playback_speed = movement_sign * gun_pointing_sign
+else:
+	animator.play("Idle")
+	animator.playback_speed = 1
+```
