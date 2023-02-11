@@ -29,6 +29,7 @@ onready var edge_jump_timer : Timer = $EdgeJumpTimer
 
 signal jumped
 signal landed
+signal my_signal
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
@@ -61,7 +62,6 @@ func jump_check():
 			linear_velocity.y = -JUMP_VELOCITY
 			just_jumped = true
 			emit_signal("jumped")
-			print_debug("jumped")
 	else:
 		interrupt_jump()
 		
@@ -100,7 +100,6 @@ func move():
 		
 	if(just_landed):
 		emit_signal("landed")
-		print_debug("landed")
 	
 func update_animations(input_vector: Vector2):
 	if input_vector.x != 0:

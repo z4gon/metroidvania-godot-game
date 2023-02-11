@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sprites/Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Player/DustSpawner.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 7.5 )
@@ -71,6 +72,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 4, 5, 6, 7, 8, 9 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("DustSpawner")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_dust_effect"
+}, {
+"args": [  ],
+"method": "spawn_dust_effect"
+} ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -99,3 +117,9 @@ update_scale = false
 [node name="EdgeJumpTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="DustSpawner" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[connection signal="jumped" from="." to="DustSpawner" method="_on_Player_jumped"]
+[connection signal="landed" from="." to="DustSpawner" method="_on_Player_landed"]

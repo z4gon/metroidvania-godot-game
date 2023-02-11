@@ -14,6 +14,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Camera following Player](#camera-following-player)
 	- [TileMap](#tilemap)
 	- [Slope Tiles](#slope-tiles)
+	- [Dust VFX](#dust-vfx)
   
 ## Screenshots
 
@@ -182,3 +183,15 @@ func update_animations(input_vector: Vector2):
 
 ![Picture](./docs/3.jpg)
 ![Picture](./docs/4.jpg)
+
+## Dust VFX
+
+- VFX
+  - Create a `Base Scene` for VFXs, with a `Sprite` node and an `AnimationPlayer` node.
+  - Inherit from the base VFX scene, and create a `Dust` VFX.
+  - Make an animation for the sprite, and add a script that moves the dust effect in a random direction.
+- Player
+  - Add a child node called `DustSpawner` to the Player scene.
+  - Add signals for `jumped` and `landed` to the `Player` script.
+  - In the run animation add a track to call `spawn_dust_effect` in the `DustSpawner`, everytime the player steps on the floor.
+  - Connect the `jumped` and `landed` signals from the `Player` into the `DustSpawner`, and make them `spawn_dust_effect`.
