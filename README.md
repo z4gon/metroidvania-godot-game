@@ -9,6 +9,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Screenshots](#screenshots)
 	- [Player Movement](#player-movement)
 		- [Slide with Snap](#slide-with-snap)
+		- [Edge Jump](#edge-jump)
 	- [Player Animations](#player-animations)
 	- [Camera following Player](#camera-following-player)
 	- [TileMap](#tilemap)
@@ -101,6 +102,31 @@ func move():
 		max_slides,
 		deg2rad(MAX_SLOPE_ANGLE)
 	)
+```
+
+### Edge Jump
+
+- Allow a "grace period" for the player to jump off the edges.
+
+```py
+# jumping
+var just_jumped : bool = false
+onready var edge_jump_timer : Timer = $EdgeJumpTimer
+
+func jump_check():
+	just_jumped = false
+	if is_on_floor() or edge_jump_timer.time_left > 0:
+		if Input.is_action_just_pressed("ui_up"):
+			...
+			just_jumped = true
+	...
+
+func move():
+	var was_on_floor = is_on_floor()
+	linear_velocity = move_and_slide_with_snap(...)
+	
+	if was_on_floor and not is_on_floor() and not just_jumped:
+		edge_jump_timer.start()
 ```
 
 ## Player Animations

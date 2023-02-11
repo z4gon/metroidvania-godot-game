@@ -21,6 +21,10 @@ var snap_vector = Vector2.DOWN
 onready var animator : AnimationPlayer = $AnimationPlayer
 onready var sprite : Sprite = $Sprite
 
+# jumping
+var just_jumped : bool = false
+onready var edge_jump_timer : Timer = $EdgeJumpTimer
+
 func _physics_process(delta):
 	var input_vector = get_input_vector()
 	apply_horizontal_acceleration(input_vector, delta)
@@ -46,9 +50,11 @@ func apply_friction(input_vector: Vector2):
 		linear_velocity.x = lerp(linear_velocity.x, 0, FRICTION) 
 		
 func jump_check():
-	if is_on_floor():
+	just_jumped = false
+	if is_on_floor() or edge_jump_timer.time_left > 0:
 		if Input.is_action_just_pressed("ui_up"):
 			linear_velocity.y = -JUMP_VELOCITY
+			just_jumped = true
 	else:
 		interrupt_jump()
 		
@@ -65,6 +71,7 @@ func apply_gravity(delta: float):
 # if colliding with other rigid bodies, it will prevent movement
 # returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
 func move():
+	var was_on_floor = is_on_floor()
 	linear_velocity = move_and_slide_with_snap(
 		linear_velocity, 
 		snap_vector,
@@ -73,6 +80,9 @@ func move():
 		max_slides,
 		deg2rad(MAX_SLOPE_ANGLE)
 	)
+	
+	if was_on_floor and not is_on_floor() and not just_jumped:
+		edge_jump_timer.start()
 	
 func update_animations(input_vector: Vector2):
 	if input_vector.x != 0:
