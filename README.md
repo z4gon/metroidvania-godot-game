@@ -30,7 +30,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 ```py
 func _physics_process(delta):
 	var input_vector = get_input_vector()
-	apply_horizontal_force(input_vector, delta)
+	apply_horizontal_acceleration(input_vector, delta)
 	apply_friction(input_vector)
 	jump_check()
 	apply_gravity(delta)
@@ -66,9 +66,9 @@ func interrupt_jump():
 		linear_velocity.y = half_jump_velocity
 
 func apply_gravity(delta: float):
-#	if not is_on_floor():
-	linear_velocity.y += GRAVITY_ACCELERATION * delta
-	linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
+	if not is_on_floor():
+		linear_velocity.y += GRAVITY_ACCELERATION * delta
+		linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
 	
 # if colliding with other rigid bodies, it will prevent movement
 # returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
