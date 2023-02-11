@@ -23,7 +23,12 @@ onready var sprite : Sprite = $Sprite
 
 # jumping
 var just_jumped : bool = false
+var just_landed : bool = false
+var just_left_floor : bool = false
 onready var edge_jump_timer : Timer = $EdgeJumpTimer
+
+signal jumped
+signal landed
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
@@ -55,6 +60,8 @@ func jump_check():
 		if Input.is_action_just_pressed("ui_up"):
 			linear_velocity.y = -JUMP_VELOCITY
 			just_jumped = true
+			emit_signal("jumped")
+			print_debug("jumped")
 	else:
 		interrupt_jump()
 		
@@ -72,6 +79,10 @@ func apply_gravity(delta: float):
 # returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
 func move():
 	var was_on_floor = is_on_floor()
+	
+	just_landed = false
+	just_left_floor = false
+	
 	linear_velocity = move_and_slide_with_snap(
 		linear_velocity, 
 		snap_vector,
@@ -81,8 +92,15 @@ func move():
 		deg2rad(MAX_SLOPE_ANGLE)
 	)
 	
-	if was_on_floor and not is_on_floor() and not just_jumped:
+	just_left_floor = was_on_floor and not is_on_floor()
+	just_landed = not was_on_floor and is_on_floor()
+	
+	if just_left_floor and not just_jumped:
 		edge_jump_timer.start()
+		
+	if(just_landed):
+		emit_signal("landed")
+		print_debug("landed")
 	
 func update_animations(input_vector: Vector2):
 	if input_vector.x != 0:
