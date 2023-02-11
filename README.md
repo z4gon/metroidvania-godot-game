@@ -130,6 +130,7 @@ func update_animations(input_vector: Vector2):
 
 ## TileMap
 
+- Enable `GPU pixel snapping` in the project settings, to fix some artifacts.
 - Set the default clear color to black `VisualServer.set_default_clear_color(Color.black)`
 - Create a new `Scene` with a root `TileMap` Node.
 - Set `Cell` Size to 16x16.
