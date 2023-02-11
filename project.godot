@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="rocket-launch-godot-game"
+config/name="metroidvania-godot-game"
 run/main_scene="res://Scenes/Root/World.tscn"
 config/icon="res://icon.png"
 
