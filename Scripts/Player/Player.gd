@@ -12,12 +12,17 @@ export (int) var MAX_SLOPE_ANGLE = 46
 
 var motion = Vector2.ZERO
 
+# animation
+onready var animator : AnimationPlayer = $AnimationPlayer
+onready var sprite : Sprite = $Sprite
+
 func _physics_process(delta):
 	var input_vector = get_input_vector()
 	apply_horizontal_force(input_vector, delta)
 	apply_friction(input_vector)
 	jump_check()
 	apply_gravity(delta)
+	update_animations(input_vector)
 	move()
 
 func get_input_vector() -> Vector2:
@@ -57,3 +62,13 @@ func apply_gravity(delta: float):
 func move():
 	var ground_normal = Vector2.UP
 	motion = move_and_slide(motion, ground_normal)
+	
+func update_animations(input_vector: Vector2):
+	if input_vector.x != 0:
+		sprite.scale.x = sign(input_vector.x)
+		animator.play("Run")
+	else:
+		animator.play("Idle")
+		
+	if not is_on_floor():
+		animator.play("Jump")

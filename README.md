@@ -5,9 +5,10 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 
 ## Table of Contents
 - [Metroidvania Game](#metroidvania-game)
-  - [Table of Contents](#table-of-contents)
-  - [Screenshots](#screenshots)
-  - [Player Movement](#player-movement)
+	- [Table of Contents](#table-of-contents)
+	- [Screenshots](#screenshots)
+	- [Player Movement](#player-movement)
+	- [Player Animations](#player-animations)
   
 ## Screenshots
 
@@ -79,4 +80,21 @@ func apply_gravity(delta: float):
 func move():
 	var ground_normal = Vector2.UP
 	motion = move_and_slide(motion, ground_normal)
+```
+
+## Player Animations
+
+- Create `Idle`, `Run` and `Jump` animations.
+- Play the corresponding animation depending on the action.
+
+```py
+func update_animations(input_vector: Vector2):
+	if input_vector.x != 0:
+		sprite.scale.x = sign(input_vector.x)
+		animator.play("Run")
+	else:
+		animator.play("Idle")
+		
+	if not is_on_floor():
+		animator.play("Jump")
 ```
