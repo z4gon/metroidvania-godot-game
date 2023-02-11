@@ -3,11 +3,11 @@ extends KinematicBody2D
 # movement
 export (int) var ACCELERATION = 512
 export (int) var MAX_SPEED = 64
-export (int) var FRICTION = 0.25
+export (float) var FRICTION = 0.25
 
 # forces
-export (int) var GRAVITY = 200
-export (int) var JUMP_FORCE = 128
+export (int) var GRAVITY = 500
+export (int) var JUMP_FORCE = 200
 export (int) var MAX_SLOPE_ANGLE = 46
 
 var motion = Vector2.ZERO
@@ -20,7 +20,7 @@ func _physics_process(delta):
 	apply_gravity(delta)
 	move()
 
-func get_input_vector():
+func get_input_vector() -> Vector2:
 	var vec = Vector2.ZERO
 	vec.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	# vec.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -43,8 +43,9 @@ func jump_check():
 		interrupt_jump()
 		
 func interrupt_jump():
-	if Input.is_action_just_released("ui_up") and motion.y < -JUMP_FORCE / 2:
-		motion.y = -JUMP_FORCE / 2
+	var half_jump_force = -JUMP_FORCE / 2
+	if Input.is_action_just_released("ui_up") and motion.y < half_jump_force:
+		motion.y = half_jump_force
 
 func apply_gravity(delta: float):
 #	if not is_on_floor():
