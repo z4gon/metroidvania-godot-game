@@ -11,6 +11,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Slide with Snap](#slide-with-snap)
 	- [Player Animations](#player-animations)
 	- [Camera following Player](#camera-following-player)
+	- [TileMap](#tilemap)
   
 ## Screenshots
 
@@ -126,3 +127,18 @@ func update_animations(input_vector: Vector2):
   - Assign the Camera to the node path in the `RemoteTransform` inside the `Player`
   - Mark the Camera to have smoothness in the movement.
 
+## TileMap
+
+- Set the default clear color to black `VisualServer.set_default_clear_color(Color.black)`
+- Create a new `Scene` with a root `TileMap` Node.
+- Set `Cell` Size to 16x16.
+- Add a `TileSet` resource to the `TileMap`.
+  - Add Sprite with the `TileSet`.
+  - Define the `Region` in the `TileSet`.
+  - Set the `subtile_size` to 16x16.
+  - Set the `autotile_bitmask_mode` to 3x3 (minimal).
+  - Define the `Bitmask` to tell the Autotile how to piece together the tiles.
+  - Define the `Collision` to tell the Autotile where to put colliders.
+
+![Picture](./docs/1.jpg)
+![Picture](./docs/2.jpg)
