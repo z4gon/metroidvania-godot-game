@@ -9,6 +9,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Screenshots](#screenshots)
 	- [Player Movement](#player-movement)
 	- [Player Animations](#player-animations)
+	- [Camera following Player](#camera-following-player)
   
 ## Screenshots
 
@@ -98,3 +99,11 @@ func update_animations(input_vector: Vector2):
 	if not is_on_floor():
 		animator.play("Jump")
 ```
+
+## Camera following Player
+
+- Use a `RemoteTransform` in the `Player` scene.
+- Setup a `Camera2D` in the main scene
+  - Mark the Player scene as `Editable Children`
+  - Assign the Camera to the node path in the `RemoteTransform` inside the `Player`
+  - Mark the Camera to have smoothness in the movement.
