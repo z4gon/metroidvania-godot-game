@@ -12,6 +12,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Player Animations](#player-animations)
 	- [Camera following Player](#camera-following-player)
 	- [TileMap](#tilemap)
+	- [Slope Tiles](#slope-tiles)
   
 ## Screenshots
 
@@ -142,3 +143,15 @@ func update_animations(input_vector: Vector2):
 
 ![Picture](./docs/1.jpg)
 ![Picture](./docs/2.jpg)
+
+
+## Slope Tiles
+
+- Create a new `Atlas` inside the `Tileset`
+- Define just the collisions.
+- In the `World` scene now you can place individual tiles from this.
+  - To fix the awkward connections, disable `Autotile` and place individual tiles from the main `Autotile`
+  - You can `Flip Horizontally` to achieve creative solutions, remember to always `Clear Transform` to not mess the autotile.
+
+![Picture](./docs/3.jpg)
+![Picture](./docs/4.jpg)
