@@ -84,7 +84,7 @@ func move():
 var linear_velocity = Vector2.ZERO
 
 # ground and snapping
-export (int) var MAX_SLOPE_ANGLE = deg2rad(45)
+export (int) var MAX_SLOPE_ANGLE = 46
 var ground_normal = Vector2.UP
 var stop_on_slope = true
 var max_slides = 4
@@ -97,7 +97,7 @@ func move():
 		ground_normal, 
 		stop_on_slope,
 		max_slides,
-		MAX_SLOPE_ANGLE
+		deg2rad(MAX_SLOPE_ANGLE)
 	)
 ```
 
