@@ -4,16 +4,18 @@ extends KinematicBody2D
 export (int) var ACCELERATION = 512
 export (int) var MAX_VELOCITY = 64
 export (float) var FRICTION = 0.25
-
-# forces
-export (int) var GRAVITY_ACCELERATION = 500
-export (int) var JUMP_VELOCITY = 200
-export (int) var MAX_SLOPE_ANGLE = 46
-
 var linear_velocity = Vector2.ZERO
 
+# accelerations
+export (int) var GRAVITY_ACCELERATION = 500
+export (int) var JUMP_VELOCITY = 200
+
+# ground and snapping
+export (int) var MAX_SLOPE_ANGLE = deg2rad(45)
 var ground_normal = Vector2.UP
-var stop_on_slopes = true
+var stop_on_slope = true
+var max_slides = 4
+var snap_vector = Vector2.DOWN
 
 # animation
 onready var animator : AnimationPlayer = $AnimationPlayer
@@ -56,14 +58,21 @@ func interrupt_jump():
 		linear_velocity.y = half_jump_velocity
 
 func apply_gravity(delta: float):
-#	if not is_on_floor():
-	linear_velocity.y += GRAVITY_ACCELERATION * delta
-	linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
+	if not is_on_floor():
+		linear_velocity.y += GRAVITY_ACCELERATION * delta
+		linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
 	
 # if colliding with other rigid bodies, it will prevent movement
 # returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
 func move():
-	linear_velocity = move_and_slide(linear_velocity, ground_normal, stop_on_slopes)
+	linear_velocity = move_and_slide_with_snap(
+		linear_velocity, 
+		snap_vector,
+		ground_normal, 
+		stop_on_slope,
+		max_slides,
+		MAX_SLOPE_ANGLE
+	)
 	
 func update_animations(input_vector: Vector2):
 	if input_vector.x != 0:

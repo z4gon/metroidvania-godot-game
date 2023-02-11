@@ -8,6 +8,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Table of Contents](#table-of-contents)
 	- [Screenshots](#screenshots)
 	- [Player Movement](#player-movement)
+		- [Slide with Snap](#slide-with-snap)
 	- [Player Animations](#player-animations)
 	- [Camera following Player](#camera-following-player)
   
@@ -74,6 +75,32 @@ func move():
 	linear_velocity = move_and_slide(linear_velocity, ground_normal, stop_on_slopes)
 ```
 
+### Slide with Snap
+
+- Using the `move_with_slide_and_snap()` function, we ensure the player stays grounded when moving on slopes.
+
+```py
+# movement
+var linear_velocity = Vector2.ZERO
+
+# ground and snapping
+export (int) var MAX_SLOPE_ANGLE = deg2rad(45)
+var ground_normal = Vector2.UP
+var stop_on_slope = true
+var max_slides = 4
+var snap_vector = Vector2.DOWN
+
+func move():
+	linear_velocity = move_and_slide_with_snap(
+		linear_velocity, 
+		snap_vector,
+		ground_normal, 
+		stop_on_slope,
+		max_slides,
+		MAX_SLOPE_ANGLE
+	)
+```
+
 ## Player Animations
 
 - Create `Idle`, `Run` and `Jump` animations.
@@ -98,3 +125,4 @@ func update_animations(input_vector: Vector2):
   - Mark the Player scene as `Editable Children`
   - Assign the Camera to the node path in the `RemoteTransform` inside the `Player`
   - Mark the Camera to have smoothness in the movement.
+
