@@ -41,46 +41,37 @@ func get_input_vector() -> Vector2:
 	vec.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	# vec.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	return vec
-```
 	
-```py
-func apply_horizontal_force(input_vector: Vector2, delta: float):
+func apply_horizontal_acceleration(input_vector: Vector2, delta: float):
 	if input_vector.x != 0:
-		motion.x += input_vector.x * ACCELERATION * delta
-		motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
+		linear_velocity.x += input_vector.x * ACCELERATION * delta
+		linear_velocity.x = clamp(linear_velocity.x, -MAX_VELOCITY, MAX_VELOCITY)
 		
 func apply_friction(input_vector: Vector2):
 	if is_on_floor() and input_vector.x == 0:
-		motion.x = lerp(motion.x, 0, FRICTION) 
-```
+		linear_velocity.x = lerp(linear_velocity.x, 0, FRICTION) 
 		
-```py
 func jump_check():
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_up"):
-			motion.y = -JUMP_FORCE
+			linear_velocity.y = -JUMP_VELOCITY
 	else:
 		interrupt_jump()
 		
 func interrupt_jump():
-	var half_jump_force = -JUMP_FORCE / 2
-	if Input.is_action_just_released("ui_up") and motion.y < half_jump_force:
-		motion.y = half_jump_force
-```
+	var half_jump_velocity = -JUMP_VELOCITY / 2
+	if Input.is_action_just_released("ui_up") and linear_velocity.y < half_jump_velocity:
+		linear_velocity.y = half_jump_velocity
 
-```py
 func apply_gravity(delta: float):
 #	if not is_on_floor():
-	motion.y += GRAVITY * delta
-	motion.y = min(motion.y, JUMP_FORCE)
-```
+	linear_velocity.y += GRAVITY_ACCELERATION * delta
+	linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
 	
-```py
 # if colliding with other rigid bodies, it will prevent movement
-# returns the "leftover" motion, to be able to slide over other rigid bodies
+# returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
 func move():
-	var ground_normal = Vector2.UP
-	motion = move_and_slide(motion, ground_normal)
+	linear_velocity = move_and_slide(linear_velocity, ground_normal, stop_on_slopes)
 ```
 
 ## Player Animations

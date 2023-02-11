@@ -46,8 +46,14 @@ position = Vector2( 58, 130 )
 remote_path = NodePath("../../Camera")
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2( 58, 130 )
+position = Vector2( 58, 123 )
 current = true
 smoothing_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 161, 93 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( -177, -93, -177, 115, 31, 115, 79, 67, 151, 67, 151, 99, 207, 99, 263, 76, 310, 76, 311, -93, 335, -93, 335, 132, -201, 132, -201, -93 )
 
 [editable path="Player"]
