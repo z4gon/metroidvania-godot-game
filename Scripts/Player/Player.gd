@@ -2,13 +2,13 @@ extends KinematicBody2D
 
 # movement
 export (int) var ACCELERATION = 512
-export (int) var MAX_VELOCITY = 64
+export (int) var MAX_HORIZONTAL_SPEED = 64
 export (float) var FRICTION = 0.25
 var linear_velocity = Vector2.ZERO
 
 # accelerations
 export (int) var GRAVITY_ACCELERATION = 500
-export (int) var JUMP_VELOCITY = 200
+export (int) var JUMP_SPEED = 200
 
 # ground and snapping
 export (int) var MAX_SLOPE_ANGLE = 46
@@ -29,7 +29,6 @@ onready var edge_jump_timer : Timer = $EdgeJumpTimer
 
 signal jumped
 signal landed
-signal my_signal
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
@@ -49,7 +48,7 @@ func get_input_vector() -> Vector2:
 func apply_horizontal_acceleration(input_vector: Vector2, delta: float):
 	if input_vector.x != 0:
 		linear_velocity.x += input_vector.x * ACCELERATION * delta
-		linear_velocity.x = clamp(linear_velocity.x, -MAX_VELOCITY, MAX_VELOCITY)
+		linear_velocity.x = clamp(linear_velocity.x, -MAX_HORIZONTAL_SPEED, MAX_HORIZONTAL_SPEED)
 		
 func apply_friction(input_vector: Vector2):
 	if is_on_floor() and input_vector.x == 0:
@@ -59,21 +58,21 @@ func jump_check():
 	just_jumped = false
 	if is_on_floor() or edge_jump_timer.time_left > 0:
 		if Input.is_action_just_pressed("ui_up"):
-			linear_velocity.y = -JUMP_VELOCITY
+			linear_velocity.y = -JUMP_SPEED
 			just_jumped = true
 			emit_signal("jumped")
 	else:
 		interrupt_jump()
 		
 func interrupt_jump():
-	var half_jump_velocity = -JUMP_VELOCITY / 2
-	if Input.is_action_just_released("ui_up") and linear_velocity.y < half_jump_velocity:
-		linear_velocity.y = half_jump_velocity
+	var half_jump_speed = -JUMP_SPEED / 2
+	if Input.is_action_just_released("ui_up") and linear_velocity.y < half_jump_speed:
+		linear_velocity.y = half_jump_speed
 
 func apply_gravity(delta: float):
 	if not is_on_floor():
 		linear_velocity.y += GRAVITY_ACCELERATION * delta
-		linear_velocity.y = min(linear_velocity.y, JUMP_VELOCITY)
+		linear_velocity.y = min(linear_velocity.y, JUMP_SPEED)
 	
 # if colliding with other rigid bodies, it will prevent movement
 # returns the "leftover" linear_velocity, to be able to slide over other rigid bodies
