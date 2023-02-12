@@ -1,6 +1,6 @@
 extends Node2D
 
-export (float) var BULLET_SPEED = 250
+export (float) var BULLET_SPEED = 250.0
 
 onready var parent = get_parent()
 onready var fire_origin = $Sprite/FireOrigin
