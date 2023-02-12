@@ -13,3 +13,7 @@ centered = false
 
 [node name="FireOrigin" type="Position2D" parent="Sprite"]
 position = Vector2( 14, 2 )
+
+[node name="FireBulletTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
