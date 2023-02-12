@@ -17,6 +17,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Dust VFX](#dust-vfx)
 	- [Player Gun](#player-gun)
 	- [Player Bullets](#player-bullets)
+	- [Fire Bullet Timer](#fire-bullet-timer)
   
 ## Screenshots
 
@@ -284,3 +285,10 @@ func fire_bullet():
 		bullet.velocity.x *= parent.scale.x # the sprite is flipped
 		bullet.rotation = bullet.velocity.angle()
 ```
+
+## Fire Bullet Timer
+
+- Add a `Timer` in the `PlayerGun`.
+- Make it `one_shot` and start each time a bullet is fired.
+- Don't let another bullet be fired until the timer reaches zero.
+- This implements a fire rate, and lets us just leave the click button pressed and rapid fire.
