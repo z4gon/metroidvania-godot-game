@@ -12,4 +12,4 @@ texture = ExtResource( 1 )
 centered = false
 
 [node name="FireOrigin" type="Position2D" parent="Sprite"]
-position = Vector2( 12, 2 )
+position = Vector2( 14, 2 )

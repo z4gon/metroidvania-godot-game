@@ -16,6 +16,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Slope Tiles](#slope-tiles)
 	- [Dust VFX](#dust-vfx)
 	- [Player Gun](#player-gun)
+	- [Player Bullets](#player-bullets)
   
 ## Screenshots
 
@@ -221,4 +222,65 @@ if input_vector.x != 0:
 else:
 	animator.play("Idle")
 	animator.playback_speed = 1
+```
+
+## Player Bullets
+
+- Create a Base Scene called `Projectile` and an associated script with the same name.
+- This scene will have a `Sprite`, a `VisibilityNotidier2D` and an `AnimationPlayer`.
+
+```py
+extends Node2D
+
+class_name Projectile
+
+var velocity : Vector2 = Vector2.ZERO
+
+func _process(delta):
+	position += velocity * delta
+
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	queue_free()
+```
+
+- Create an Inherited Scene called `PlayerBullet` and also extend the `Projectile.gd` script into a `PlayerBullet.gd` script.
+- The `PlayerBullet` will start without processing it's movement, until the animation of the fire explosion is done.
+
+```py
+extends Projectile
+
+class_name PlayerBullet
+
+func _ready():
+	set_process(false) # don't move the bullet until the fire animation finishes
+```
+
+- In the `PlayerGun` script, fire a bullet whenever the `fire` input is pressed.
+- Use the `PlayerGun` rotation to make the `PlayerBullets` go in the same direction.
+- Use the `parent.scale.x` (the `Sprite` in the `Player`) to determine the direction of the velocity of the `PlayerBullet`.
+
+```py
+extends Node2D
+
+export (float) var BULLET_SPEED = 250
+
+onready var parent = get_parent()
+onready var fire_origin = $Sprite/FireOrigin
+
+var Utils = preload("res://Scripts/Utils.gd")
+var PlayerBullet = preload("res://Scenes/Player/PlayerBullet.tscn")
+
+func _process(_delta):
+	point_to_mouse()
+	fire_bullet()
+
+func point_to_mouse():
+	rotation = parent.get_local_mouse_position().angle()
+
+func fire_bullet():
+	if Input.is_action_just_pressed("fire"):
+		var bullet : PlayerBullet = Utils.instantiate(self, PlayerBullet, fire_origin.global_position)
+		bullet.velocity = Vector2.RIGHT.rotated(rotation) * BULLET_SPEED
+		bullet.velocity.x *= parent.scale.x # the sprite is flipped
+		bullet.rotation = bullet.velocity.angle()
 ```
