@@ -21,7 +21,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Moving Platforms](#moving-platforms)
 		- [Nodes Hierarchy](#nodes-hierarchy)
 		- [Behaviors](#behaviors)
-		- [Walking Enemies](#walking-enemies)
+	- [Walking Enemies](#walking-enemies)
   
 ## Screenshots
 
@@ -296,7 +296,7 @@ func fire_bullet():
 - Make it `one_shot` and start each time a bullet is fired.
 - Don't let another bullet be fired until the timer reaches zero.
 - This implements a fire rate, and lets us just leave the click button pressed and rapid fire.
-- 
+
 ## Moving Platforms
 
 ### Nodes Hierarchy
@@ -317,7 +317,7 @@ func fire_bullet():
 - Make animation less glitchy
   - Make the `AnimationPlayer` to have `process_mode` = `physics`.
 
-### Walking Enemies
+## Walking Enemies
 
 - Base `Enemy` Scene and Script.
 - Has a `linear_velocity` vector and a `MAX_SPEED`.
