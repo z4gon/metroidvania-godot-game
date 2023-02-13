@@ -37,6 +37,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [UI Theme](#ui-theme)
 		- [Fonts](#fonts)
 		- [StyleBox](#stylebox)
+	- [Pause Menu](#pause-menu)
   
 ## Screenshots
 
@@ -495,3 +496,11 @@ func _on_HurtBox_hit(damage: int):
 - Create two `StyleBoxTexture` Resources, one for normal and one for hover.
 - Set the texture and set the margin for stretching.
 - Set these StyleBoxes in the Theme and also set the font color for hover and pressed.
+
+## Pause Menu
+
+- Create a `ColorRect` using the same Theme we created before.
+- Make it not visible by default.
+- Make it have a `Pause Mode` set to `Process`.
+- When `Esc` is pressed, set the engine to pause and show the pause UI.
+- Set the engine to pause using `get_tree().paused = true`

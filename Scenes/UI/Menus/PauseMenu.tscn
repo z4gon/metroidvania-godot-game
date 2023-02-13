@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/UI/DefaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/UI/Menus/PauseMenu.gd" type="Script" id=2]
+
+[node name="PauseMenu" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+color = Color( 0, 0, 0, 0.870588 )
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 120.0
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 112.0
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 80, 20 )
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 80.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 80, 20 )
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
