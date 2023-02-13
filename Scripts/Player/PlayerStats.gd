@@ -1,12 +1,13 @@
-extends Node
+extends Resource
 
 class_name PlayerStats
 
-onready var animator = $InvincibilityAnimator
-var is_invincible = false setget set_is_invincible
+export (int) var MAX_HP = 4
+var hp = MAX_HP setget set_hp
 
-func set_is_invincible(value):
-	is_invincible = value
+signal player_died
 
-func _on_HurtBox_hit(_damage: int):
-	animator.play("Blink")
+func set_hp(value: int):
+	hp = clamp(value, 0, MAX_HP)
+	if hp <= 0:
+		emit_signal("player_died")

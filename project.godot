@@ -15,9 +15,9 @@ _global_script_classes=[ {
 "path": "res://Scripts/Enemies/Enemy.gd"
 }, {
 "base": "Node",
-"class": "EnemyStats",
+"class": "EnemyStatsManager",
 "language": "GDScript",
-"path": "res://Scripts/Enemies/EnemyStats.gd"
+"path": "res://Scripts/Enemies/EnemyStatsManager.gd"
 }, {
 "base": "Area2D",
 "class": "HitBox",
@@ -34,10 +34,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Player/PlayerBullet.gd"
 }, {
-"base": "Node",
+"base": "Resource",
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://Scripts/Player/PlayerStats.gd"
+}, {
+"base": "Node",
+"class": "PlayerStatsManager",
+"language": "GDScript",
+"path": "res://Scripts/Player/PlayerStatsManager.gd"
 }, {
 "base": "Node2D",
 "class": "Projectile",
@@ -51,11 +56,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Enemy": "",
-"EnemyStats": "",
+"EnemyStatsManager": "",
 "HitBox": "",
 "HurtBox": "",
 "PlayerBullet": "",
 "PlayerStats": "",
+"PlayerStatsManager": "",
 "Projectile": "",
 "WalkingEnemy": ""
 }
@@ -65,6 +71,10 @@ _global_script_class_icons={
 config/name="metroidvania-godot-game"
 run/main_scene="res://Scenes/Root/World.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+ResourcesLoader="*res://Scenes/Root/ResourcesLoader.tscn"
 
 [display]
 

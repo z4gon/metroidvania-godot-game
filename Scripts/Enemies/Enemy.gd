@@ -5,7 +5,7 @@ class_name Enemy
 export (int) var MAX_SPEED = 15
 var linear_velocity = Vector2.ZERO
 
-onready var stats = $EnemyStats
+onready var stats = $EnemyStatsManager
 
 func _on_HurtBox_hit(damage: float):
 	stats.hp -= damage 

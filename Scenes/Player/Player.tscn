@@ -6,8 +6,8 @@
 [ext_resource path="res://Scenes/Player/PlayerGun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Player/JumpVFXSpawner.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/HurtHitSystem/HurtBox.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Player/PlayerCollider.tres" type="Shape2D" id=7]
-[ext_resource path="res://Scripts/Player/PlayerStats.gd" type="Script" id=8]
+[ext_resource path="res://Resources/Player/PlayerCollider.tres" type="Shape2D" id=7]
+[ext_resource path="res://Scripts/Player/PlayerStatsManager.gd" type="Script" id=8]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
@@ -108,7 +108,7 @@ tracks/0/keys = {
 "values": [ false, true, false, true, false, true, false, true, false, true ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("PlayerStats")
+tracks/1/path = NodePath("StatsManager")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -186,16 +186,16 @@ collision_layer = 8
 position = Vector2( 0, -7.5 )
 shape = ExtResource( 7 )
 
-[node name="PlayerStats" type="Node" parent="."]
+[node name="StatsManager" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="InvincibilityAnimator" type="AnimationPlayer" parent="PlayerStats"]
+[node name="InvincibilityAnimator" type="AnimationPlayer" parent="StatsManager"]
 root_node = NodePath("../..")
 anims/Blink = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
 [connection signal="jumped" from="." to="JumpVFXSpawner" method="_on_Player_jumped"]
 [connection signal="landed" from="." to="DustVFXSpawner" method="_on_Player_landed"]
-[connection signal="hit" from="HurtBox" to="PlayerStats" method="_on_HurtBox_hit"]
+[connection signal="hit" from="HurtBox" to="StatsManager" method="_on_HurtBox_hit"]
 
 [editable path="HurtBox"]

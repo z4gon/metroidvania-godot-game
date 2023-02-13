@@ -195,7 +195,7 @@ func update_animations(input_vector: Vector2):
 ![Picture](./docs/3.jpg)
 ![Picture](./docs/4.jpg)
 
-## Dust VFX
+## Dust VFX (Scene Inheritance)
 
 - VFX
   - Create a `Base Scene` for VFXs, with a `Sprite` node and an `AnimationPlayer` node.
@@ -318,7 +318,7 @@ func fire_bullet():
 - Make animation less glitchy
   - Make the `AnimationPlayer` to have `process_mode` = `physics`.
 
-## Walking Enemies
+## Walking Enemies (Script Inheritance)
 
 - Base `Enemy` Scene and Script.
 - Has a `linear_velocity` vector and a `MAX_SPEED`.
@@ -354,7 +354,21 @@ func fire_bullet():
 - From the `Enemy` Node, everytime the `hurtbox` is hit, deduct the `damage` form the `hp` of the enemy.
 - The `EnemyStats` will emit a `signal` called `enemy_died`, which will be connected to the `Enemy` Node, to `queue_free()`
 
-## Player Stats
+## Player Stats Manager
 - Add a `Hurtbox` to the `Player` and a `Hitbox` to the `WalkingEnemy`.
 - Add a `PlayerStats` Node to the Player, which will be reacting to the `hit` signals coming from the `Hurtbox`.
 - Add an `AnimationPlayer` to animate the invincibility blinking after getting hit.
+
+## Custom Resources 
+
+- Create a `preloaded` global singleton that preloads the custom `Resources`.
+- For now just preload `PlayerStats`.
+
+### Player Stats
+
+- Script that inherits from `Resource`.
+- It would be similar to a "Scriptable Object" in Unity.
+- Create a `.tres` off of the script, and preload it in the `ResourcesLoader` singleton.
+- The `PlayerStatsManager` node in the Player scene will be in charge of: 
+  - Connecting to the `player_died` signal.
+  - Substracting `hp` from the `PlayerStats` whenever the `Hurtbox` signals that it was `hit`.
