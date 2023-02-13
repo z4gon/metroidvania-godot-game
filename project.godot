@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Enemies/Enemy.gd"
 }, {
+"base": "Area2D",
+"class": "HitBox",
+"language": "GDScript",
+"path": "res://Scripts/HurtHitSystem/HitBox.gd"
+}, {
+"base": "Area2D",
+"class": "HurtBox",
+"language": "GDScript",
+"path": "res://Scripts/HurtHitSystem/HurtBox.gd"
+}, {
 "base": "Projectile",
 "class": "PlayerBullet",
 "language": "GDScript",
@@ -31,6 +41,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Enemy": "",
+"HitBox": "",
+"HurtBox": "",
 "PlayerBullet": "",
 "Projectile": "",
 "WalkingEnemy": ""
@@ -120,6 +132,8 @@ fire={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="World"
 2d_physics/layer_3="Enemies"
+2d_physics/layer_4="HurtBoxPlayer"
+2d_physics/layer_5="HurtBoxEnemies"
 
 [physics]
 

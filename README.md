@@ -22,6 +22,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Nodes Hierarchy](#nodes-hierarchy)
 		- [Behaviors](#behaviors)
 	- [Walking Enemies](#walking-enemies)
+	- [Hurt/Hit Boxes](#hurthit-boxes)
   
 ## Screenshots
 
@@ -325,3 +326,9 @@ func fire_bullet():
 - The `WalkingEnemy` will just apply the `MAX_SPEED` to move left or right.
 - A set of `RayCast2D` Nodes will be constantly checking for `walls` or `edges` on the floor, and make the enemy turn around.
 - Update the `Physics2D` Layers to define the `Player`, `Enemies` and `World` Layers.
+
+## Hurt/Hit Boxes
+
+- The `HitBox` will be associated with attacks and projectiles, defining the colliders for the parts that inflict damage.
+- The `HurtBox` will be associated with parts of actos that should take damage when colliding with hitboxes.
+- The `HurtBox` emits a signal when it collides when a hitbox, the hitbox tells the hurtbox to take damage on collision.
