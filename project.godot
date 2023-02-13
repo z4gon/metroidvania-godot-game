@@ -74,7 +74,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-ResourcesLoader="*res://Scenes/Root/ResourcesLoader.tscn"
+ResourcesLoader="*res://Scripts/Root/ResourcesLoader.gd"
+EventsBus="*res://Scripts/Root/EventsBus.gd"
 
 [display]
 

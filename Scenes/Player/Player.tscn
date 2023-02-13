@@ -108,7 +108,7 @@ tracks/0/keys = {
 "values": [ false, true, false, true, false, true, false, true, false, true ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("StatsManager")
+tracks/1/path = NodePath("PlayerStatsManager")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -186,16 +186,16 @@ collision_layer = 8
 position = Vector2( 0, -7.5 )
 shape = ExtResource( 7 )
 
-[node name="StatsManager" type="Node" parent="."]
+[node name="PlayerStatsManager" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="InvincibilityAnimator" type="AnimationPlayer" parent="StatsManager"]
+[node name="InvincibilityAnimator" type="AnimationPlayer" parent="PlayerStatsManager"]
 root_node = NodePath("../..")
 anims/Blink = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
 [connection signal="jumped" from="." to="JumpVFXSpawner" method="_on_Player_jumped"]
 [connection signal="landed" from="." to="DustVFXSpawner" method="_on_Player_landed"]
-[connection signal="hit" from="HurtBox" to="StatsManager" method="_on_HurtBox_hit"]
+[connection signal="hit" from="HurtBox" to="PlayerStatsManager" method="_on_HurtBox_hit"]
 
 [editable path="HurtBox"]
