@@ -17,7 +17,7 @@ func set_is_invincible(value):
 func _on_HurtBox_hit(damage: int):
 	stats.hp -= damage
 	animator.play("Blink")
-	events_bus.trigger("player_hit", { offset = 2, duration = .5 })
+	events_bus.trigger("player_hit", { offset = 1, duration = .5 })
 
 func on_player_died():
 	get_parent().queue_free()
