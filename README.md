@@ -353,3 +353,8 @@ func fire_bullet():
 - Component to keep track of the current hp of the enemy.
 - From the `Enemy` Node, everytime the `hurtbox` is hit, deduct the `damage` form the `hp` of the enemy.
 - The `EnemyStats` will emit a `signal` called `enemy_died`, which will be connected to the `Enemy` Node, to `queue_free()`
+
+## Player Stats
+- Add a `Hurtbox` to the `Player` and a `Hitbox` to the `WalkingEnemy`.
+- Add a `PlayerStats` Node to the Player, which will be reacting to the `hit` signals coming from the `Hurtbox`.
+- Add an `AnimationPlayer` to animate the invincibility blinking after getting hit.

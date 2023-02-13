@@ -18,7 +18,7 @@ var max_slides = 4
 var snap_vector = Vector2.DOWN
 
 # animation
-onready var animator : AnimationPlayer = $AnimationPlayer
+onready var animator : AnimationPlayer = $SpriteAnimator
 onready var sprite : Sprite = $Sprite
 
 # jumping
