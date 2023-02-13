@@ -34,6 +34,9 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Player HP Bar](#player-hp-bar)
 	- [Start Menu](#start-menu)
 		- [Nodes Hierarchy](#nodes-hierarchy-1)
+		- [UI Theme](#ui-theme)
+		- [Fonts](#fonts)
+		- [StyleBox](#stylebox)
   
 ## Screenshots
 
@@ -475,3 +478,20 @@ func _on_HurtBox_hit(damage: int):
       - LoadButton
       - QuitButton
 ```
+
+### UI Theme
+
+- Create a new `Theme` Resource to set to the Buttons.
+- `Import` all elements and data from the `Godot Editor Theme`.
+- Set it to all the `Buttons`.
+
+### Fonts
+
+- Create a `DynamicFont` Resource and use the `.ttf` font.
+- Set this font as defualt in the Theme.
+
+### StyleBox
+
+- Create two `StyleBoxTexture` Resources, one for normal and one for hover.
+- Set the texture and set the margin for stretching.
+- Set these StyleBoxes in the Theme and also set the font color for hover and pressed.
