@@ -85,10 +85,10 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "spawn_dust_effect"
+"method": "spawn_effect"
 }, {
 "args": [  ],
-"method": "spawn_dust_effect"
+"method": "spawn_effect"
 } ]
 }
 
