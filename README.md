@@ -14,15 +14,26 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Camera following Player](#camera-following-player)
 	- [TileMap](#tilemap)
 	- [Slope Tiles](#slope-tiles)
-	- [Dust VFX](#dust-vfx)
+	- [Dust VFX (Scene Inheritance)](#dust-vfx-scene-inheritance)
 	- [Player Gun](#player-gun)
 	- [Player Bullets](#player-bullets)
 	- [Fire Bullet Timer](#fire-bullet-timer)
 	- [Moving Platforms](#moving-platforms)
 		- [Nodes Hierarchy](#nodes-hierarchy)
 		- [Behaviors](#behaviors)
-	- [Walking Enemies](#walking-enemies)
+	- [Walking Enemies (Script Inheritance)](#walking-enemies-script-inheritance)
 	- [Hurt/Hit Boxes](#hurthit-boxes)
+	- [Projectile Explosion](#projectile-explosion)
+	- [Player Jump VFX](#player-jump-vfx)
+	- [Enemy Stats](#enemy-stats)
+	- [Player Stats Manager](#player-stats-manager)
+	- [Custom Resources](#custom-resources)
+		- [Player Stats](#player-stats)
+	- [Events Bus](#events-bus)
+	- [Camera Shake](#camera-shake)
+	- [Player HP Bar](#player-hp-bar)
+	- [Start Menu](#start-menu)
+		- [Nodes Hierarchy](#nodes-hierarchy-1)
   
 ## Screenshots
 
@@ -302,12 +313,14 @@ func fire_bullet():
 
 ### Nodes Hierarchy
 
+```
 - Path2D
   - PathFollow2D
     - KinematicRigidBody2D
       - Sprite
       - CollissionShape2D
 - AnimationPlayer
+```
 
 ### Behaviors
 
@@ -446,3 +459,19 @@ func _on_HurtBox_hit(damage: int):
 - Use a `CanvasLayer` and a `Control` to display two `TextureRects`.
 - Connect the `Control` to the `PlayerStats` and add a new signal `player_hp_changed`.
 - Then adjust the texture rects size according to the current player hp `full_rect.rect_size.x = 1 + hp_cell_width * current_hp`
+
+## Start Menu
+
+- Make a separate scene and make it the default scene.
+- On click `start`, change scene to world `get_tree().change_scene("res://Scenes/Root/World.tscn")`
+
+### Nodes Hierarchy
+
+```
+- StartMenu
+  - CenterContainer
+    - VBoxContainer
+      - StartButton
+      - LoadButton
+      - QuitButton
+```
