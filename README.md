@@ -18,6 +18,9 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Player Gun](#player-gun)
 	- [Player Bullets](#player-bullets)
 	- [Fire Bullet Timer](#fire-bullet-timer)
+	- [Moving Platforms](#moving-platforms)
+		- [Nodes Hierarchy](#nodes-hierarchy)
+		- [Behaviors](#behaviors)
   
 ## Screenshots
 
@@ -292,3 +295,23 @@ func fire_bullet():
 - Make it `one_shot` and start each time a bullet is fired.
 - Don't let another bullet be fired until the timer reaches zero.
 - This implements a fire rate, and lets us just leave the click button pressed and rapid fire.
+- 
+## Moving Platforms
+
+### Nodes Hierarchy
+
+- Path2D
+  - PathFollow2D
+    - KinematicRigidBody2D
+      - Sprite
+      - CollissionShape2D
+- AnimationPlayer
+
+### Behaviors
+
+- Make the `CollisisonShape2D` to have a `one_way_collission`.
+- Make the `PathFollow2D` follow a path in the `Path2D`.
+- Save the paths as resources to be able to reuse them.
+- Use the `AnimationPlayer` to animate the `unit_offset` of the `PathFollow2D`.
+- Make animation less glitchy
+  - Make the `AnimationPlayer` to have `process_mode` = `physics`.
