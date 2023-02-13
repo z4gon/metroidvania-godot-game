@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Root/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/World/TileMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/World/MovingPlatform.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/World/Path2DLeftRight.tres" type="Curve2D" id=5]
+[ext_resource path="res://Scenes/Enemies/WalkingEnemy.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -67,6 +68,13 @@ curve = ExtResource( 5 )
 [node name="AnimationPlayer" parent="MovingPlatform2" index="1"]
 anims/Move = SubResource( 1 )
 anims/RESET = SubResource( 2 )
+
+[node name="WalkingEnemy" parent="." instance=ExtResource( 6 )]
+position = Vector2( 145, 160 )
+
+[node name="WalkingEnemy2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 158, 256 )
+INITIAL_WALK_DIRECTION = -1
 
 [editable path="Player"]
 [editable path="MovingPlatform2"]

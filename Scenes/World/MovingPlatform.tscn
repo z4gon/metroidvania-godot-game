@@ -53,6 +53,8 @@ loop = false
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="Path2D/PathFollow2D"]
 rotation = 1.5708
+collision_layer = 2
+collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D/KinematicBody2D"]
 texture = ExtResource( 1 )

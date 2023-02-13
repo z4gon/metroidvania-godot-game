@@ -21,6 +21,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Moving Platforms](#moving-platforms)
 		- [Nodes Hierarchy](#nodes-hierarchy)
 		- [Behaviors](#behaviors)
+		- [Walking Enemies](#walking-enemies)
   
 ## Screenshots
 
@@ -315,3 +316,12 @@ func fire_bullet():
 - Use the `AnimationPlayer` to animate the `unit_offset` of the `PathFollow2D`.
 - Make animation less glitchy
   - Make the `AnimationPlayer` to have `process_mode` = `physics`.
+
+### Walking Enemies
+
+- Base `Enemy` Scene and Script.
+- Has a `linear_velocity` vector and a `MAX_SPEED`.
+- The `WalkingEnemy` Scene inherits from the `Enemy` Scene, and its script also extends `Enemy.gd`
+- The `WalkingEnemy` will just apply the `MAX_SPEED` to move left or right.
+- A set of `RayCast2D` Nodes will be constantly checking for `walls` or `edges` on the floor, and make the enemy turn around.
+- Update the `Physics2D` Layers to define the `Player`, `Enemies` and `World` Layers.

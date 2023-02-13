@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Enemies/WalkingEnemy.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Enemies/WalkingEnemy.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2, 6 )
+
+[node name="WalkingEnemy" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+INITIAL_WALK_DIRECTION = 1
+MAX_SLOPE_ANGLE = 46
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, -9 )
+texture = ExtResource( 2 )
+flip_h = true
+hframes = 2
+
+[node name="Collider" parent="." index="1"]
+position = Vector2( 0, -6 )
+shape = SubResource( 1 )
+
+[node name="RayCastFloorLeft" type="RayCast2D" parent="." index="3"]
+position = Vector2( -2, 0 )
+enabled = true
+cast_to = Vector2( 0, 6 )
+collision_mask = 2
+
+[node name="RayCastFloorRight" type="RayCast2D" parent="." index="4"]
+position = Vector2( 2, 0 )
+enabled = true
+cast_to = Vector2( 0, 6 )
+collision_mask = 2
+
+[node name="RayCastWallRight" type="RayCast2D" parent="." index="5"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+collision_mask = 2
+
+[node name="RayCastWallLeft" type="RayCast2D" parent="." index="6"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( -10, 0 )
+collision_mask = 2
