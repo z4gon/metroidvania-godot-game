@@ -332,3 +332,18 @@ func fire_bullet():
 - The `HitBox` will be associated with attacks and projectiles, defining the colliders for the parts that inflict damage.
 - The `HurtBox` will be associated with parts of actos that should take damage when colliding with hitboxes.
 - The `HurtBox` emits a signal when it collides when a hitbox, the hitbox tells the hurtbox to take damage on collision.
+
+## Projectile Explosion
+
+- VFX
+  - Inherit from the base VFX scene, and create a `Explosion` VFX.
+- Projectile
+  - In `body_entered` and `area_entered`, instantiate an `Explosion` VFX before ivoking `queue_free()`
+
+## Player Jump VFX
+
+- VFX
+  - Inherit from the base VFX scene, and create a `Jump` VFX.
+- Player
+  - Add a child node called `JumpVFXSpawner` to the Player scene.
+  - Connect the `jumped` signal from the `Player` into the `JumpVFXSpawner`, and make them `spawn_effect()`.

@@ -4,6 +4,9 @@ class_name Projectile
 
 var velocity : Vector2 = Vector2.ZERO
 
+var Utils = preload("res://Scripts/Utils.gd")
+var ExplosionVFX = preload("res://Scenes/VFX/ExplosionVFX.tscn")
+
 func _process(delta):
 	position += velocity * delta
 
@@ -11,7 +14,11 @@ func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	queue_free()
 
 func _on_HitBox_body_entered(body):
-	queue_free()
+	explode()
 
 func _on_HitBox_area_entered(hurtBox: Area2D):
+	explode()
+
+func explode():
+	Utils.instantiate(self, ExplosionVFX, global_position)
 	queue_free()

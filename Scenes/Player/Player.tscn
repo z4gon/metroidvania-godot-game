@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sprites/Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/Player/DustSpawner.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Player/DustVFXSpawner.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Player/PlayerGun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Player/JumpVFXSpawner.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 7.5 )
@@ -74,7 +75,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 8, 9 ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("DustSpawner")
+tracks/1/path = NodePath("DustVFXSpawner")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -124,8 +125,11 @@ update_scale = false
 wait_time = 0.2
 one_shot = true
 
-[node name="DustSpawner" type="Node2D" parent="."]
+[node name="DustVFXSpawner" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[connection signal="jumped" from="." to="DustSpawner" method="_on_Player_jumped"]
-[connection signal="landed" from="." to="DustSpawner" method="_on_Player_landed"]
+[node name="JumpVFXSpawner" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[connection signal="jumped" from="." to="JumpVFXSpawner" method="_on_Player_jumped"]
+[connection signal="landed" from="." to="DustVFXSpawner" method="_on_Player_landed"]
