@@ -440,3 +440,9 @@ func _on_HurtBox_hit(damage: int):
 	...
 	events_bus.trigger("player_hit", { offset = 2, duration = .5 })
 ```
+
+## Player HP Bar
+
+- Use a `CanvasLayer` and a `Control` to display two `TextureRects`.
+- Connect the `Control` to the `PlayerStats` and add a new signal `player_hp_changed`.
+- Then adjust the texture rects size according to the current player hp `full_rect.rect_size.x = 1 + hp_cell_width * current_hp`
