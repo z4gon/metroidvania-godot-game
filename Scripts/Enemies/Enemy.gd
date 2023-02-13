@@ -5,5 +5,10 @@ class_name Enemy
 export (int) var MAX_SPEED = 15
 var linear_velocity = Vector2.ZERO
 
-func _on_HurtBox_hit(_damage: float):
+onready var stats = $EnemyStats
+
+func _on_HurtBox_hit(damage: float):
+	stats.hp -= damage 
+
+func _on_EnemyStats_enemy_died():
 	queue_free()

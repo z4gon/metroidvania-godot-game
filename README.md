@@ -347,3 +347,9 @@ func fire_bullet():
 - Player
   - Add a child node called `JumpVFXSpawner` to the Player scene.
   - Connect the `jumped` signal from the `Player` into the `JumpVFXSpawner`, and make them `spawn_effect()`.
+  
+## Enemy Stats
+
+- Component to keep track of the current hp of the enemy.
+- From the `Enemy` Node, everytime the `hurtbox` is hit, deduct the `damage` form the `hp` of the enemy.
+- The `EnemyStats` will emit a `signal` called `enemy_died`, which will be connected to the `Enemy` Node, to `queue_free()`
