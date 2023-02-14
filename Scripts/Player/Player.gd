@@ -202,7 +202,7 @@ func update_animations():
 	
 	match state:
 		PLAYER_STATE.MOVING:
-			sprite.scale.x = gun_pointing_sign
+			sprite.scale.x = gun_pointing_sign if gun_pointing_sign != 0 else sprite.scale.x
 			
 			if input_vector.x != 0:
 				animator.play("Run")
@@ -215,5 +215,5 @@ func update_animations():
 				animator.play("Jump")
 				
 		PLAYER_STATE.WALL_SLIDING:
-			sprite.scale.x = -wall_collision_sign
+			sprite.scale.x = -wall_collision_sign if wall_collision_sign != 0 else sprite.scale.x
 			animator.play("WallSlide")
