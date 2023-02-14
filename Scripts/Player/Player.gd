@@ -1,14 +1,16 @@
 extends KinematicBody2D
 
 # vfx
-onready var dustVFX = $DustVFXSpawner
-onready var jumpVFX = $JumpVFXSpawner
+onready var dust_vfx = $DustVFXSpawner
+onready var jump_vfx = $JumpVFXSpawner
+onready var wall_dust_vfx = $WallDustVFXSpawner
 
 # movement
 export (int) var ACCELERATION = 512
 export (int) var MAX_HORIZONTAL_SPEED = 64
 export (float) var FRICTION = 0.25
 var linear_velocity = Vector2.ZERO
+var input_vector : Vector2  = Vector2.ZERO
 
 # accelerations
 export (int) var GRAVITY_ACCELERATION = 500
@@ -38,14 +40,15 @@ onready var ray_cast_left_wall : RayCast2D = $RayCastLeftWall
 onready var ray_cast_right_wall : RayCast2D = $RayCastRightWall
 export (int) var WALL_SLIDE_SPEED = 30
 var can_wall_slide = true
+var wall_collision_sign : int = 0
 
 # state machine
 enum PLAYER_STATE { MOVING, WALL_SLIDING }
 var state = PLAYER_STATE.MOVING setget set_state
 
 func _physics_process(delta):
-	var input_vector = get_input_vector()
-	var wall_collision_sign = get_wall_collision_sign()
+	input_vector = get_input_vector()
+	wall_collision_sign = get_wall_collision_sign()
 	
 	match state:
 		PLAYER_STATE.MOVING:
@@ -90,7 +93,7 @@ func jump():
 	if Input.is_action_just_pressed("ui_up"):
 		linear_velocity.y = -JUMP_SPEED
 		just_jumped = true
-		jumpVFX.spawn_jump_effect()
+		jump_vfx.spawn()
 
 func interrupt_jump():
 	var half_jump_speed = -JUMP_SPEED / 2
@@ -100,7 +103,7 @@ func interrupt_jump():
 func air_jump():
 	if Input.is_action_just_pressed("ui_up") and air_jumps > 0:
 		linear_velocity.y = -JUMP_SPEED
-		jumpVFX.spawn_jump_effect()
+		jump_vfx.spawn()
 		air_jumps -= 1
 		
 func apply_gravity(delta: float):
@@ -133,16 +136,19 @@ func move():
 		
 	if(just_landed):
 		air_jumps = AIR_JUMPS
-		dustVFX.spawn_dust_effect()
+		dust_vfx.spawn()
 		
 func set_state(value):
 	state = value
 	match value:
 		PLAYER_STATE.MOVING:
-			dustVFX.stop_spawning()
+			dust_vfx.stop_spawning()
 		PLAYER_STATE.WALL_SLIDING:
-			dustVFX.start_spawning()
-			
+			dust_vfx.start_spawning()
+	
+	var dust_position = Vector2(-wall_collision_sign * 2, 0)
+	wall_dust_vfx.spawn(-wall_collision_sign, dust_position)
+	
 func wall_slide_check(wall_collision_sign: int):
 	if not can_wall_slide:
 		can_wall_slide = wall_collision_sign == 0
@@ -153,7 +159,6 @@ func wall_slide_check(wall_collision_sign: int):
 	if can_wall_slide and not is_on_floor() and (hugging_left_wall or hugging_right_wall):
 		self.state = PLAYER_STATE.WALL_SLIDING
 		can_wall_slide = false
-		air_jumps = AIR_JUMPS
 		
 func get_wall_collision_sign() -> int:
 	return int(ray_cast_right_wall.is_colliding()) - int(ray_cast_left_wall.is_colliding())

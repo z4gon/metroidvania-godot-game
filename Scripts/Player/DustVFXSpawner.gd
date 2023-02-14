@@ -11,8 +11,8 @@ func start_spawning():
 func stop_spawning():
 	timer.stop()
 
-func spawn_dust_effect():
+func spawn():
 	Utils.instantiate(self, DustVFX, global_position)
 
 func _on_Timer_timeout():
-	spawn_dust_effect()
+	spawn()

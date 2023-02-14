@@ -18,6 +18,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Slope Tiles](#slope-tiles)
 	- [Dust VFX (Scene Inheritance)](#dust-vfx-scene-inheritance)
 		- [Wall Slide Dust VFX](#wall-slide-dust-vfx)
+		- [Wall Dust VFX](#wall-dust-vfx)
 	- [Player Gun](#player-gun)
 	- [Player Bullets](#player-bullets)
 	- [Fire Bullet Timer](#fire-bullet-timer)
@@ -198,7 +199,7 @@ func move():
 ### Wall Slide
 
 - Allow the Player to stick to walls and slide on them.
-- Also allow the Player to jump off of walls while sliding, and also gain back air jumps.
+- Also allow the Player to jump off of walls while sliding.
 
 ```py
 # wall slide
@@ -373,6 +374,10 @@ func set_state(value):
 		PLAYER_STATE.WALL_SLIDING:
 			dustVFX.start_spawning()
 ```
+
+### Wall Dust VFX
+
+- Shown when the player attaches or detaches from a wall.
 
 ## Player Gun
 
