@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Player
+
 # vfx
 onready var dust_vfx = $DustVFXSpawner
 onready var jump_vfx = $JumpVFXSpawner
@@ -45,6 +47,9 @@ var wall_collision_sign : int = 0
 # state machine
 enum PLAYER_STATE { MOVING, WALL_SLIDING }
 var state = PLAYER_STATE.MOVING setget set_state
+
+func _ready():
+	Global.player = self
 
 func _physics_process(delta):
 	input_vector = get_input_vector()

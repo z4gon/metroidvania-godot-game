@@ -542,9 +542,10 @@ func fire_bullet():
 
 - Script that inherits from `Resource`.
 - It would be similar to a "Scriptable Object" in Unity.
-- Create a `.tres` off of the script, and preload it in the `ResourcesLoader` singleton.
+- Create a `.tres` off of the script, and preload it in the `PlayerStatsManager` using `onready var stats = preload("res://Resources/Player/PlayerStats.tres")`
 - The `PlayerStatsManager` node in the Player scene will be in charge of: 
-  - Connecting to the `player_died` signal.
+  - Setting the `Global.player_stats`
+  - Connecting to the `player_died` signal from `PlayerStats`.
   - Substracting `hp` from the `PlayerStats` whenever the `Hurtbox` signals that it was `hit`.
 
 ## Events Bus
@@ -618,7 +619,8 @@ func _on_HurtBox_hit(damage: int):
 ## Player HP Bar
 
 - Use a `CanvasLayer` and a `Control` to display two `TextureRects`.
-- Connect the `Control` to the `PlayerStats` and add a new signal `player_hp_changed`.
+- On `_read()` connect to the `player_stats_set` signal in the `Global` singleton.
+  - When the `player_stats` are ready and available, connect to the `player_hp_changed` signal in the `PlayerStats`.
 - Then adjust the texture rects size according to the current player hp `full_rect.rect_size.x = 1 + hp_cell_width * current_hp`
 
 ## Start Menu
