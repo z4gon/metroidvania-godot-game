@@ -220,13 +220,13 @@ anims/Blink = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
 [node name="RayCastLeftWall" type="RayCast2D" parent="."]
-position = Vector2( 0, -3 )
+position = Vector2( 0, -13 )
 enabled = true
 cast_to = Vector2( -6, 0 )
 collision_mask = 2
 
 [node name="RayCastRightWall" type="RayCast2D" parent="."]
-position = Vector2( 0, -3 )
+position = Vector2( 0, -13 )
 enabled = true
 cast_to = Vector2( 6, 0 )
 collision_mask = 2

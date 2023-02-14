@@ -42,6 +42,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Fonts](#fonts)
 		- [StyleBox](#stylebox)
 	- [Pause Menu](#pause-menu)
+	- [Flying Enemy](#flying-enemy)
   
 ## Screenshots
 
@@ -663,3 +664,29 @@ func _on_HurtBox_hit(damage: int):
 - Make it have a `Pause Mode` set to `Process`.
 - When `Esc` is pressed, set the engine to pause and show the pause UI.
 - Set the engine to pause using `get_tree().paused = true`
+
+## Flying Enemy
+
+- Make it have access to the global reference to the `Player`.
+- It will try to chase the player if in range.
+
+```py
+func chase_player(player, delta):
+	
+	var distance_to_player : Vector2 = player.global_position - global_position
+	if distance_to_player.length() <= CHASE_RANGE:
+		# accelerate
+		var direction = distance_to_player.normalized()
+		linear_velocity += direction * ACCELERATION * delta
+		linear_velocity = linear_velocity.clamped(MAX_SPEED)
+
+		# animations
+		sprite.flip_h = global_position < player.global_position
+		
+		# move
+		linear_velocity = move_and_slide(linear_velocity)
+		
+		animator.playback_speed = 2.5
+		
+	animator.playback_speed = 1
+```
