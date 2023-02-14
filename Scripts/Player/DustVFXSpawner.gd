@@ -3,8 +3,16 @@ extends Node2D
 var Utils = preload("res://Scripts/Utils.gd")
 var DustVFX = preload("res://Scenes/VFX/DustVFX.tscn")
 
-func spawn_effect():
+onready var timer : Timer = $Timer
+
+func start_spawning():
+	timer.start()
+	
+func stop_spawning():
+	timer.stop()
+
+func spawn_dust_effect():
 	Utils.instantiate(self, DustVFX, global_position)
 
-func _on_Player_landed():
-	spawn_effect()
+func _on_Timer_timeout():
+	spawn_dust_effect()

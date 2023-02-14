@@ -17,6 +17,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [TileMap](#tilemap)
 	- [Slope Tiles](#slope-tiles)
 	- [Dust VFX (Scene Inheritance)](#dust-vfx-scene-inheritance)
+		- [Wall Slide Dust VFX](#wall-slide-dust-vfx)
 	- [Player Gun](#player-gun)
 	- [Player Bullets](#player-bullets)
 	- [Fire Bullet Timer](#fire-bullet-timer)
@@ -350,6 +351,28 @@ func update_animations(input_vector: Vector2, wall_collision_sign: int):
   - Add signals for `jumped` and `landed` to the `Player` script.
   - In the run animation add a track to call `spawn_dust_effect` in the `DustSpawner`, everytime the player steps on the floor.
   - Connect the `jumped` and `landed` signals from the `Player` into the `DustSpawner`, and make them `spawn_dust_effect`.
+
+### Wall Slide Dust VFX
+
+- Use a `Timer` to start spawning dust while sliding on the walls.
+
+```py
+onready var dustVFX = $DustVFXSpawner
+
+...
+
+var state = PLAYER_STATE.MOVING setget set_state
+
+...
+
+func set_state(value):
+	state = value
+	match value:
+		PLAYER_STATE.MOVING:
+			dustVFX.stop_spawning()
+		PLAYER_STATE.WALL_SLIDING:
+			dustVFX.start_spawning()
+```
 
 ## Player Gun
 

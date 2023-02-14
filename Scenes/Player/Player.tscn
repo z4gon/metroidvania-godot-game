@@ -85,10 +85,10 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "spawn_effect"
+"method": "spawn_dust_effect"
 }, {
 "args": [  ],
-"method": "spawn_effect"
+"method": "spawn_dust_effect"
 } ]
 }
 
@@ -194,6 +194,9 @@ one_shot = true
 [node name="DustVFXSpawner" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
+[node name="Timer" type="Timer" parent="DustVFXSpawner"]
+wait_time = 0.2
+
 [node name="JumpVFXSpawner" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
@@ -224,9 +227,7 @@ enabled = true
 cast_to = Vector2( 6, 0 )
 collision_mask = 2
 
-[connection signal="air_jumped" from="." to="JumpVFXSpawner" method="_on_Player_air_jumped"]
-[connection signal="jumped" from="." to="JumpVFXSpawner" method="_on_Player_jumped"]
-[connection signal="landed" from="." to="DustVFXSpawner" method="_on_Player_landed"]
+[connection signal="timeout" from="DustVFXSpawner/Timer" to="DustVFXSpawner" method="_on_Timer_timeout"]
 [connection signal="hit" from="HurtBox" to="PlayerStatsManager" method="_on_HurtBox_hit"]
 
 [editable path="HurtBox"]

@@ -3,11 +3,5 @@ extends Node2D
 var Utils = preload("res://Scripts/Utils.gd")
 var JumpVFX = preload("res://Scenes/VFX/JumpVFX.tscn")
 
-func spawn_effect():
+func spawn_jump_effect():
 	Utils.instantiate(self, JumpVFX, global_position)
-
-func _on_Player_jumped():
-	spawn_effect()
-
-func _on_Player_air_jumped():
-	spawn_effect()

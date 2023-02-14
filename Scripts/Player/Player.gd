@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+# vfx
+onready var dustVFX = $DustVFXSpawner
+onready var jumpVFX = $JumpVFXSpawner
+
 # movement
 export (int) var ACCELERATION = 512
 export (int) var MAX_HORIZONTAL_SPEED = 64
@@ -29,10 +33,6 @@ var just_left_floor : bool = false
 onready var edge_jump_timer : Timer = $EdgeJumpTimer
 onready var air_jumps = AIR_JUMPS
 
-signal jumped
-signal air_jumped
-signal landed
-
 # wall slide
 onready var ray_cast_left_wall : RayCast2D = $RayCastLeftWall
 onready var ray_cast_right_wall : RayCast2D = $RayCastRightWall
@@ -41,7 +41,7 @@ var can_wall_slide = true
 
 # state machine
 enum PLAYER_STATE { MOVING, WALL_SLIDING }
-var state = PLAYER_STATE.MOVING
+var state = PLAYER_STATE.MOVING setget set_state
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
@@ -90,7 +90,7 @@ func jump():
 	if Input.is_action_just_pressed("ui_up"):
 		linear_velocity.y = -JUMP_SPEED
 		just_jumped = true
-		emit_signal("jumped")
+		jumpVFX.spawn_jump_effect()
 
 func interrupt_jump():
 	var half_jump_speed = -JUMP_SPEED / 2
@@ -100,7 +100,7 @@ func interrupt_jump():
 func air_jump():
 	if Input.is_action_just_pressed("ui_up") and air_jumps > 0:
 		linear_velocity.y = -JUMP_SPEED
-		emit_signal("air_jumped")
+		jumpVFX.spawn_jump_effect()
 		air_jumps -= 1
 		
 func apply_gravity(delta: float):
@@ -133,8 +133,16 @@ func move():
 		
 	if(just_landed):
 		air_jumps = AIR_JUMPS
-		emit_signal("landed")
+		dustVFX.spawn_dust_effect()
 		
+func set_state(value):
+	state = value
+	match value:
+		PLAYER_STATE.MOVING:
+			dustVFX.stop_spawning()
+		PLAYER_STATE.WALL_SLIDING:
+			dustVFX.start_spawning()
+			
 func wall_slide_check(wall_collision_sign: int):
 	if not can_wall_slide:
 		can_wall_slide = wall_collision_sign == 0
@@ -143,7 +151,7 @@ func wall_slide_check(wall_collision_sign: int):
 	var hugging_left_wall = Input.is_action_pressed("ui_left") and wall_collision_sign == -1
 	
 	if can_wall_slide and not is_on_floor() and (hugging_left_wall or hugging_right_wall):
-		state = PLAYER_STATE.WALL_SLIDING
+		self.state = PLAYER_STATE.WALL_SLIDING
 		can_wall_slide = false
 		air_jumps = AIR_JUMPS
 		
@@ -154,7 +162,7 @@ func wall_slide_detach_check(wall_collision_sign, delta):
 	var detached = false
 	
 	# reached floor
-	if is_on_floor():
+	if wall_collision_sign == 0 or is_on_floor():
 		detached = true
 		
 	# released
@@ -167,13 +175,13 @@ func wall_slide_detach_check(wall_collision_sign, delta):
 		detached = true
 		
 	if detached:
-		state = PLAYER_STATE.MOVING
+		self.state = PLAYER_STATE.MOVING
 		
 func wall_slide_jump_check(wall_collision_sign):
 	if Input.is_action_just_pressed("ui_up"):
 		linear_velocity.x = -wall_collision_sign * MAX_HORIZONTAL_SPEED
 		linear_velocity.y = -JUMP_SPEED
-		state = PLAYER_STATE.MOVING
+		self.state = PLAYER_STATE.MOVING
 		
 func apply_wall_slide_acceleration():
 	linear_velocity.y = WALL_SLIDE_SPEED
