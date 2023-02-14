@@ -8,3 +8,6 @@ func spawn_effect():
 
 func _on_Player_jumped():
 	spawn_effect()
+
+func _on_Player_air_jumped():
+	spawn_effect()

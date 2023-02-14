@@ -22,12 +22,15 @@ onready var animator : AnimationPlayer = $SpriteAnimator
 onready var sprite : Sprite = $Sprite
 
 # jumping
+export (int) var AIR_JUMPS = 1
 var just_jumped : bool = false
 var just_landed : bool = false
 var just_left_floor : bool = false
 onready var edge_jump_timer : Timer = $EdgeJumpTimer
+onready var air_jumps = AIR_JUMPS
 
 signal jumped
+signal air_jumped
 signal landed
 
 func _physics_process(delta):
@@ -57,18 +60,28 @@ func apply_friction(input_vector: Vector2):
 func jump_check():
 	just_jumped = false
 	if is_on_floor() or edge_jump_timer.time_left > 0:
-		if Input.is_action_just_pressed("ui_up"):
-			linear_velocity.y = -JUMP_SPEED
-			just_jumped = true
-			emit_signal("jumped")
+		jump()
 	else:
 		interrupt_jump()
+		air_jump()
 		
+func jump():
+	if Input.is_action_just_pressed("ui_up"):
+		linear_velocity.y = -JUMP_SPEED
+		just_jumped = true
+		emit_signal("jumped")
+
 func interrupt_jump():
 	var half_jump_speed = -JUMP_SPEED / 2
 	if Input.is_action_just_released("ui_up") and linear_velocity.y < half_jump_speed:
 		linear_velocity.y = half_jump_speed
-
+		
+func air_jump():
+	if Input.is_action_just_pressed("ui_up") and air_jumps > 0:
+		linear_velocity.y = -JUMP_SPEED
+		emit_signal("air_jumped")
+		air_jumps -= 1
+		
 func apply_gravity(delta: float):
 	if not is_on_floor():
 		linear_velocity.y += GRAVITY_ACCELERATION * delta
@@ -98,6 +111,7 @@ func move():
 		edge_jump_timer.start()
 		
 	if(just_landed):
+		air_jumps = AIR_JUMPS
 		emit_signal("landed")
 	
 func update_animations(input_vector: Vector2):

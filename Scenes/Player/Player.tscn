@@ -194,6 +194,7 @@ root_node = NodePath("../..")
 anims/Blink = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
+[connection signal="air_jumped" from="." to="JumpVFXSpawner" method="_on_Player_air_jumped"]
 [connection signal="jumped" from="." to="JumpVFXSpawner" method="_on_Player_jumped"]
 [connection signal="landed" from="." to="DustVFXSpawner" method="_on_Player_landed"]
 [connection signal="hit" from="HurtBox" to="PlayerStatsManager" method="_on_HurtBox_hit"]

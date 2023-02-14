@@ -10,6 +10,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Player Movement](#player-movement)
 		- [Slide with Snap](#slide-with-snap)
 		- [Edge Jump](#edge-jump)
+		- [Double Jump (Air Jump)](#double-jump-air-jump)
 	- [Player Animations](#player-animations)
 	- [Camera following Player](#camera-following-player)
 	- [TileMap](#tilemap)
@@ -154,6 +155,42 @@ func move():
 	
 	if was_on_floor and not is_on_floor() and not just_jumped:
 		edge_jump_timer.start()
+```
+
+### Double Jump (Air Jump)
+
+- Allow to jump more times, while in the air.
+
+```py
+export (int) var AIR_JUMPS = 1
+onready var air_jumps = AIR_JUMPS
+
+signal air_jumped
+
+func jump_check():
+	just_jumped = false
+	if is_on_floor() or edge_jump_timer.time_left > 0:
+		jump()
+	else:
+		interrupt_jump()
+		air_jump()
+
+...
+
+func air_jump():
+	if Input.is_action_just_pressed("ui_up") and air_jumps > 0:
+		linear_velocity.y = -JUMP_SPEED
+		emit_signal("air_jumped")
+		air_jumps -= 1
+
+...
+
+func move():
+	...
+		
+	if(just_landed):
+		air_jumps = AIR_JUMPS
+		emit_signal("landed")
 ```
 
 ## Player Animations
