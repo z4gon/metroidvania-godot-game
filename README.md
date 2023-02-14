@@ -45,6 +45,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Flying Enemy](#flying-enemy)
 	- [Enemy Death VFX](#enemy-death-vfx)
 	- [Plant Enemy](#plant-enemy)
+	- [Crawling Enemy](#crawling-enemy)
   
 ## Screenshots
 
@@ -702,3 +703,10 @@ func chase_player(player, delta):
 
 - Stationary `Enemy` that shoots `EnemyBullets`.
 - It has a `FireOrigin` and a `FireDirection` using `Position2D` nodes.
+
+## Crawling Enemy
+
+- Use `RayCast2D` to detect when a `wall` or the `floor` is in sight.
+- If a `wall` is reached, get the position and normal of the ray cast point, and snap to the wall surface.
+  - Else, if the `floor` is detected, use the floor ray cast to snap to a position a bit ahead.
+  - Else, we reached an edge, rotate the enemy until the floor is detected again, and snap to it.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Root/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/FlyingEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Enemies/PlantEnemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Enemies/CrawlingEnemy.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -102,6 +103,37 @@ rotation = -1.5708
 
 [node name="PlantEnemy3" parent="." instance=ExtResource( 10 )]
 position = Vector2( 553, 248 )
+
+[node name="CrawlingEnemy" parent="." instance=ExtResource( 11 )]
+position = Vector2( 260, 64 )
+INITIAL_WALK_DIRECTION = -1
+
+[node name="CrawlingEnemy2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 75, 192 )
+INITIAL_WALK_DIRECTION = -1
+
+[node name="CrawlingEnemy5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 465, 192 )
+
+[node name="CrawlingEnemy6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 429, 96 )
+
+[node name="CrawlingEnemy7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 646, 256 )
+
+[node name="CrawlingEnemy8" parent="." instance=ExtResource( 11 )]
+position = Vector2( 626, 16 )
+rotation = 3.14159
+
+[node name="CrawlingEnemy3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 16, 66 )
+rotation = 1.5708
+INITIAL_WALK_DIRECTION = -1
+
+[node name="CrawlingEnemy4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 95, 224 )
+rotation = 3.14159
+INITIAL_WALK_DIRECTION = -1
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]

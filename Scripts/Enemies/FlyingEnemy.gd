@@ -9,11 +9,10 @@ onready var animator = $AnimationPlayer
 
 func _physics_process(delta):
 	var player = Global.player
-	if player != null:
+	if player != null and is_instance_valid(player):
 		chase_player(player, delta)
 
 func chase_player(player, delta):
-	
 	var distance_to_player : Vector2 = player.global_position - global_position
 	if distance_to_player.length() <= CHASE_RANGE:
 		# accelerate
