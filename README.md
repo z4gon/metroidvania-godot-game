@@ -44,6 +44,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Pause Menu](#pause-menu)
 	- [Flying Enemy](#flying-enemy)
 	- [Enemy Death VFX](#enemy-death-vfx)
+	- [Plant Enemy](#plant-enemy)
   
 ## Screenshots
 
@@ -696,3 +697,8 @@ func chase_player(player, delta):
 
 - Make a new scene which spawns a bunch of dust vfx.
 - Spawn it whenever an enemy is killed.
+
+## Plant Enemy
+
+- Stationary `Enemy` that shoots `EnemyBullets`.
+- It has a `FireOrigin` and a `FireDirection` using `Position2D` nodes.

@@ -19,7 +19,7 @@ func point_to_mouse():
 func fire_bullet():
 	if Input.is_action_pressed("fire") and fire_bullet_timer.time_left == 0:
 		var bullet : PlayerBullet = Utils.instantiate(self, PlayerBullet, fire_origin.global_position)
-		bullet.velocity = Vector2.RIGHT.rotated(rotation) * BULLET_SPEED
-		bullet.velocity.x *= parent.scale.x # the sprite is flipped
-		bullet.rotation = bullet.velocity.angle()
+		bullet.linear_velocity = Vector2.RIGHT.rotated(rotation) * BULLET_SPEED
+		bullet.linear_velocity.x *= parent.scale.x # the sprite is flipped
+		bullet.rotation = bullet.linear_velocity.angle()
 		fire_bullet_timer.start()

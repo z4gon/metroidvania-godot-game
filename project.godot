@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://Scripts/Player/Projectile.gd"
+"path": "res://Scripts/Projectile.gd"
 }, {
 "base": "Enemy",
 "class": "WalkingEnemy",

@@ -2,13 +2,13 @@ extends Node2D
 
 class_name Projectile
 
-var velocity : Vector2 = Vector2.ZERO
+var linear_velocity : Vector2 = Vector2.ZERO
 
 var Utils = preload("res://Scripts/Utils.gd")
 var ExplosionVFX = preload("res://Scenes/VFX/ExplosionVFX.tscn")
 
 func _process(delta):
-	position += velocity * delta
+	position += linear_velocity * delta
 
 func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	queue_free()

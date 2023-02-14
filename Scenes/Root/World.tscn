@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Root/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/World/Camera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/FlyingEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Enemies/PlantEnemy.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -84,15 +85,23 @@ INITIAL_WALK_DIRECTION = -1
 
 [node name="FlyingEnemy" parent="." instance=ExtResource( 9 )]
 position = Vector2( 400, 55 )
-CHASE_RANGE = 100.0
 
 [node name="FlyingEnemy2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 643, 97 )
-CHASE_RANGE = 100.0
 
 [node name="FlyingEnemy3" parent="." instance=ExtResource( 9 )]
 position = Vector2( 438, 145 )
-CHASE_RANGE = 100.0
+
+[node name="PlantEnemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( 166, 24 )
+rotation = 3.14159
+
+[node name="PlantEnemy2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 728, 129 )
+rotation = -1.5708
+
+[node name="PlantEnemy3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 553, 248 )
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]
