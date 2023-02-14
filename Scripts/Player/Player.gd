@@ -33,13 +33,34 @@ signal jumped
 signal air_jumped
 signal landed
 
+# wall slide
+onready var ray_cast_left_wall : RayCast2D = $RayCastLeftWall
+onready var ray_cast_right_wall : RayCast2D = $RayCastRightWall
+export (int) var WALL_SLIDE_SPEED = 30
+var can_wall_slide = true
+
+# state machine
+enum PLAYER_STATE { MOVING, WALL_SLIDING }
+var state = PLAYER_STATE.MOVING
+
 func _physics_process(delta):
 	var input_vector = get_input_vector()
-	apply_horizontal_acceleration(input_vector, delta)
-	apply_friction(input_vector)
-	jump_check()
-	apply_gravity(delta)
-	update_animations(input_vector)
+	var wall_collision_sign = get_wall_collision_sign()
+	
+	match state:
+		PLAYER_STATE.MOVING:
+			apply_horizontal_acceleration(input_vector, delta)
+			apply_friction(input_vector)
+			jump_check()
+			apply_gravity(delta)
+			wall_slide_check(wall_collision_sign)
+			
+		PLAYER_STATE.WALL_SLIDING:
+			wall_slide_detach_check(wall_collision_sign, delta)
+			apply_wall_slide_acceleration()
+			wall_slide_jump_check(wall_collision_sign)
+		
+	update_animations(input_vector, wall_collision_sign)
 	move()
 
 func get_input_vector() -> Vector2:
@@ -99,7 +120,7 @@ func move():
 		linear_velocity, 
 		snap_vector,
 		ground_normal, 
-		stop_on_slope,
+		stop_on_slope, 
 		max_slides,
 		deg2rad(MAX_SLOPE_ANGLE)
 	)
@@ -113,19 +134,68 @@ func move():
 	if(just_landed):
 		air_jumps = AIR_JUMPS
 		emit_signal("landed")
+		
+func wall_slide_check(wall_collision_sign: int):
+	if not can_wall_slide:
+		can_wall_slide = wall_collision_sign == 0
 	
-func update_animations(input_vector: Vector2):
+	var hugging_right_wall = Input.is_action_pressed("ui_right") and wall_collision_sign == 1
+	var hugging_left_wall = Input.is_action_pressed("ui_left") and wall_collision_sign == -1
+	
+	if can_wall_slide and not is_on_floor() and (hugging_left_wall or hugging_right_wall):
+		state = PLAYER_STATE.WALL_SLIDING
+		can_wall_slide = false
+		air_jumps = AIR_JUMPS
+		
+func get_wall_collision_sign() -> int:
+	return int(ray_cast_right_wall.is_colliding()) - int(ray_cast_left_wall.is_colliding())
+	
+func wall_slide_detach_check(wall_collision_sign, delta):
+	var detached = false
+	
+	# reached floor
+	if is_on_floor():
+		detached = true
+		
+	# released
+	elif not Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
+		detached = true
+	
+	# detached to the side
+	elif Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right") :
+		linear_velocity.x = -wall_collision_sign * ACCELERATION * delta
+		detached = true
+		
+	if detached:
+		state = PLAYER_STATE.MOVING
+		
+func wall_slide_jump_check(wall_collision_sign):
+	if Input.is_action_just_pressed("ui_up"):
+		linear_velocity.x = -wall_collision_sign * MAX_HORIZONTAL_SPEED
+		linear_velocity.y = -JUMP_SPEED
+		state = PLAYER_STATE.MOVING
+		
+func apply_wall_slide_acceleration():
+	linear_velocity.y = WALL_SLIDE_SPEED
+	
+func update_animations(input_vector: Vector2, wall_collision_sign: int):
 	var movement_sign = sign(input_vector.x)
 	var gun_pointing_sign = sign(get_local_mouse_position().x)
 	
-	sprite.scale.x = gun_pointing_sign
-	
-	if input_vector.x != 0:
-		animator.play("Run")
-		animator.playback_speed = movement_sign * gun_pointing_sign
-	else:
-		animator.play("Idle")
-		animator.playback_speed = 1
-		
-	if not is_on_floor():
-		animator.play("Jump")
+	match state:
+		PLAYER_STATE.MOVING:
+			sprite.scale.x = gun_pointing_sign
+			
+			if input_vector.x != 0:
+				animator.play("Run")
+				animator.playback_speed = movement_sign * gun_pointing_sign
+			else:
+				animator.play("Idle")
+				animator.playback_speed = 1
+				
+			if not is_on_floor():
+				animator.play("Jump")
+				
+		PLAYER_STATE.WALL_SLIDING:
+			sprite.scale.x = -wall_collision_sign
+			animator.play("WallSlide")
