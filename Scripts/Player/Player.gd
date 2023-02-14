@@ -57,18 +57,18 @@ func _physics_process(delta):
 	
 	match state:
 		PLAYER_STATE.MOVING:
-			apply_horizontal_acceleration(input_vector, delta)
-			apply_friction(input_vector)
+			apply_horizontal_acceleration(delta)
+			apply_friction()
 			jump_check()
 			apply_gravity(delta)
-			wall_slide_check(wall_collision_sign)
+			wall_slide_check()
 			
 		PLAYER_STATE.WALL_SLIDING:
-			wall_slide_detach_check(wall_collision_sign, delta)
+			wall_slide_detach_check(delta)
 			apply_wall_slide_acceleration()
-			wall_slide_jump_check(wall_collision_sign)
+			wall_slide_jump_check()
 		
-	update_animations(input_vector, wall_collision_sign)
+	update_animations()
 	move()
 
 func get_input_vector() -> Vector2:
@@ -77,12 +77,12 @@ func get_input_vector() -> Vector2:
 	# vec.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	return vec
 	
-func apply_horizontal_acceleration(input_vector: Vector2, delta: float):
+func apply_horizontal_acceleration(delta: float):
 	if input_vector.x != 0:
 		linear_velocity.x += input_vector.x * ACCELERATION * delta
 		linear_velocity.x = clamp(linear_velocity.x, -MAX_HORIZONTAL_SPEED, MAX_HORIZONTAL_SPEED)
 		
-func apply_friction(input_vector: Vector2):
+func apply_friction():
 	if is_on_floor() and input_vector.x == 0:
 		linear_velocity.x = lerp(linear_velocity.x, 0, FRICTION) 
 		
@@ -154,7 +154,7 @@ func set_state(value):
 	var dust_position = Vector2(-wall_collision_sign * 2, 0)
 	wall_dust_vfx.spawn(-wall_collision_sign, dust_position)
 	
-func wall_slide_check(wall_collision_sign: int):
+func wall_slide_check():
 	if not can_wall_slide:
 		can_wall_slide = wall_collision_sign == 0
 	
@@ -168,7 +168,7 @@ func wall_slide_check(wall_collision_sign: int):
 func get_wall_collision_sign() -> int:
 	return int(ray_cast_right_wall.is_colliding()) - int(ray_cast_left_wall.is_colliding())
 	
-func wall_slide_detach_check(wall_collision_sign, delta):
+func wall_slide_detach_check(delta):
 	var detached = false
 	
 	# reached floor
@@ -187,7 +187,7 @@ func wall_slide_detach_check(wall_collision_sign, delta):
 	if detached:
 		self.state = PLAYER_STATE.MOVING
 		
-func wall_slide_jump_check(wall_collision_sign):
+func wall_slide_jump_check():
 	if Input.is_action_just_pressed("ui_up"):
 		linear_velocity.x = -wall_collision_sign * MAX_HORIZONTAL_SPEED
 		linear_velocity.y = -JUMP_SPEED
@@ -196,7 +196,7 @@ func wall_slide_jump_check(wall_collision_sign):
 func apply_wall_slide_acceleration():
 	linear_velocity.y = WALL_SLIDE_SPEED
 	
-func update_animations(input_vector: Vector2, wall_collision_sign: int):
+func update_animations():
 	var movement_sign = sign(input_vector.x)
 	var gun_pointing_sign = sign(get_local_mouse_position().x)
 	
