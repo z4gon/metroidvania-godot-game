@@ -54,6 +54,9 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Missile Destroyable Exlusives](#missile-destroyable-exlusives)
 	- [Powerup](#powerup)
 		- [Missile Powerup](#missile-powerup)
+	- [Levels](#levels)
+	- [Doors](#doors)
+	- [Changing Levels](#changing-levels)
   
 ## Screenshots
 
@@ -871,3 +874,70 @@ func _on_HitBox_body_entered(body):
 - Inherit the `Powerup` scene and create the `MissilePowerup` also extend the script.
   - Make the `MissilePowerup` script to increase the player stats misile count by 1
   - Make the `PlayerStats` also have a signal and a variable to communicate to the UI that the missiles have been unlocked.
+
+## Levels
+
+- Create a base scene/script called `Level`
+- Remove the Tileset, Walls, Bricks, Platforms, Enemies and all the content from world.
+  - Move this into an inherited scene called `Level_00`
+- Make the `World` have a `current_level` pointing to the current level.
+
+## Doors
+
+- Will make the `Player` exit current level and get into the next level.
+- Add a new physics 2D layer called `Doors` and make the doors be in it.
+- Doors will have a reference to a shared standard resource called `DoorConnection` which will link doors together across levels.
+  - We will use this to correctly position the player upon changing level.
+- Use the `EventBus` to communicate the event of a player entering the door.
+
+```py
+class_name Door
+
+export (Resource) var DOOR_CONNECTION # 00_door_01.tres
+export (String, FILE, "*.tscn") var NEXT_LEVEL_FILE_PATH = "" # res://Scenes/Levels/Level_01.tscn
+export (bool) var active = true
+
+onready var events_bus = EventsBus
+
+func _on_Door_body_entered(body):
+	active = false
+	events_bus.trigger("player_entered_door", { door = self })
+```
+
+## Changing Levels
+
+- Make the `World` subscribe to the `EventBus` and listen to the event of a player entering another level.
+- Use `call_deferred` to ensure the changing of the level happens after all processing is done.
+- Load the next level using the file path, and instantiate it.
+- Position the player in the position of the entering door in the next level.
+  - We iterate the doors in the next level and find the one with the same connection.
+  - Also reposition the camera, make it snap to the player, temporarily disable its smoothing.
+
+```py
+func on_player_entered_door(door: Door):
+	call_deferred("change_level", door)
+	
+func change_level(door: Door):
+	current_level.visible = false
+	
+	var NextLevel = load(door.NEXT_LEVEL_FILE_PATH)
+	var next_level : Level = Utils.instantiate(self, NextLevel, current_level.global_position)
+	
+	position_player_on_next_level(door, next_level)
+	
+	current_level.queue_free()
+	current_level = next_level
+
+func position_player_on_next_level(exit_door: Door, next_level: Level):
+	var doors = next_level.get_tree().get_nodes_in_group("Doors")
+	
+	var enter_door: Door = null
+	for door in doors:
+		if door.DOOR_CONNECTION == exit_door.DOOR_CONNECTION:
+			enter_door = door
+			
+	Global.player.global_position = enter_door.global_position
+	
+	camera.temporarily_disable_smoothing()
+	camera.global_position = Global.player.global_position
+```

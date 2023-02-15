@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Door",
+"language": "GDScript",
+"path": "res://Scripts/World/Door.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "HurtBox",
 "language": "GDScript",
 "path": "res://Scripts/HurtHitSystem/HurtBox.gd"
+}, {
+"base": "Node2D",
+"class": "Level",
+"language": "GDScript",
+"path": "res://Scripts/Levels/Level.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -70,10 +80,12 @@ _global_script_classes=[ {
 "path": "res://Scripts/Enemies/WalkingEnemy.gd"
 } ]
 _global_script_class_icons={
+"Door": "",
 "Enemy": "",
 "EnemyStatsManager": "",
 "HitBox": "",
 "HurtBox": "",
+"Level": "",
 "Player": "",
 "PlayerBullet": "",
 "PlayerMissile": "",
@@ -187,6 +199,7 @@ fire_alt={
 2d_physics/layer_5="HurtBoxEnemies"
 2d_physics/layer_6="Bricks"
 2d_physics/layer_7="Powerups"
+2d_physics/layer_8="Doors"
 
 [physics]
 
