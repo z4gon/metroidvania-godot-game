@@ -1,17 +1,21 @@
 extends Node2D
 
 export (float) var BULLET_SPEED = 250.0
+export (float) var MISSILE_SPEED = 120.0
 
 onready var parent = get_parent()
+
 onready var fire_origin = $Sprite/FireOrigin
 onready var fire_bullet_timer = $FireBulletTimer
 
 var Utils = preload("res://Scripts/Utils.gd")
 var PlayerBullet = preload("res://Scenes/Player/PlayerBullet.tscn")
+var PlayerMissile = preload("res://Scenes/Player/PlayerMissile.tscn")
 
 func _process(_delta):
 	point_to_mouse()
 	fire_bullet()
+	fire_missile()
 
 func point_to_mouse():
 	rotation = parent.get_local_mouse_position().angle()
@@ -23,3 +27,10 @@ func fire_bullet():
 		bullet.linear_velocity.x *= parent.scale.x # the sprite is flipped
 		bullet.rotation = bullet.linear_velocity.angle()
 		fire_bullet_timer.start()
+
+func fire_missile():
+	if Input.is_action_just_pressed("fire_alt"):
+		var missile = Utils.instantiate(self, PlayerMissile, fire_origin.global_position)
+		missile.linear_velocity = Vector2.RIGHT.rotated(rotation) * MISSILE_SPEED
+		missile.linear_velocity.x *= parent.scale.x # the sprite is flipped
+		missile.rotation = missile.linear_velocity.angle()

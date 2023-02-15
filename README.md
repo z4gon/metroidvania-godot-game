@@ -46,6 +46,9 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Enemy Death VFX](#enemy-death-vfx)
 	- [Plant Enemy](#plant-enemy)
 	- [Crawling Enemy](#crawling-enemy)
+	- [Player Missile](#player-missile)
+		- [Missile Scene](#missile-scene)
+		- [Fire Missile](#fire-missile)
   
 ## Screenshots
 
@@ -710,3 +713,36 @@ func chase_player(player, delta):
 - If a `wall` is reached, get the position and normal of the ray cast point, and snap to the wall surface.
   - Else, if the `floor` is detected, use the floor ray cast to snap to a position a bit ahead.
   - Else, we reached an edge, rotate the enemy until the floor is detected again, and snap to it.
+
+## Player Missile
+
+### Missile Scene
+
+- Inherit from `Projectile`
+- Add a `CollisionShape` and set a damage.
+- Add a CPU based `Particles2D`
+  - Lifetime and Preprocess = 0.3
+  - Drawing, Local Coords = False
+  - Process Material
+    - Emission Shape = Box
+    - Spread = 180
+    - Gravity = 20
+    - Velocity = 5
+    - Velocity Random = 0.5
+    - Scale Curve to reach zero scale at end of lifetime
+
+### Fire Missile
+
+```py
+export (float) var MISSILE_SPEED = 120.0
+var PlayerMissile = preload("res://Scenes/Player/PlayerMissile.tscn")
+
+...
+
+func fire_missile():
+	if Input.is_action_just_pressed("fire_alt"):
+		var missile = Utils.instantiate(self, PlayerMissile, fire_origin.global_position)
+		missile.linear_velocity = Vector2.RIGHT.rotated(rotation) * MISSILE_SPEED
+		missile.linear_velocity.x *= parent.scale.x # the sprite is flipped
+		missile.rotation = missile.linear_velocity.angle()
+```
