@@ -58,6 +58,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Doors](#doors)
 	- [Changing Levels](#changing-levels)
 	- [Boss Enemy Rigging](#boss-enemy-rigging)
+	- [Boss Enemy Animation](#boss-enemy-animation)
   
 ## Screenshots
 
@@ -950,3 +951,7 @@ func position_player_on_next_level(exit_door: Door, next_level: Level):
 - Make `IK Chains` to be able to control the legs by their `Position2D` at the ends.
 
 ![Picture](./docs/5.jpg)
+
+## Boss Enemy Animation
+
+- Create a Fly animation by adding keyframes for the elements in the inverse kinematics chain.
