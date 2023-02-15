@@ -57,6 +57,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Levels](#levels)
 	- [Doors](#doors)
 	- [Changing Levels](#changing-levels)
+	- [Boss Enemy Rigging](#boss-enemy-rigging)
   
 ## Screenshots
 
@@ -941,3 +942,11 @@ func position_player_on_next_level(exit_door: Door, next_level: Level):
 	camera.temporarily_disable_smoothing()
 	camera.global_position = Global.player.global_position
 ```
+
+## Boss Enemy Rigging
+
+- Create a new `BossEnemy` scene and setup a hierarchy of sprites to build the boss body.
+- Create `Custom` `Bones` across the legs, make sure to add an extra `Position2D` at the end of each leg.
+- Make `IK Chains` to be able to control the legs by their `Position2D` at the ends.
+
+![Picture](./docs/5.jpg)
