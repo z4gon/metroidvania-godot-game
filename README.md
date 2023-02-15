@@ -59,6 +59,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Changing Levels](#changing-levels)
 	- [Boss Enemy Rigging](#boss-enemy-rigging)
 	- [Boss Enemy Animation](#boss-enemy-animation)
+	- [Boss Enemy Chase Player](#boss-enemy-chase-player)
   
 ## Screenshots
 
@@ -955,3 +956,7 @@ func position_player_on_next_level(exit_door: Door, next_level: Level):
 ## Boss Enemy Animation
 
 - Create a Fly animation by adding keyframes for the elements in the inverse kinematics chain.
+
+## Boss Enemy Chase Player
+
+- Implement a movement very similar to the `FlyEnemy`, except for the Boss will only move horizontally and try to position on top of the player.

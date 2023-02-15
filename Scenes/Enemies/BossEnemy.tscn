@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Enemies/BossEnemyBody.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Sprites/Enemies/BossEnemyLeg2.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Enemies/BossEnemyLeg3.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Enemies/BossEnemyLeg1.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Enemies/BossEnemy.gd" type="Script" id=8]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Base"
@@ -1418,6 +1419,16 @@ radius = 16.0312
 length = 31.0
 
 [node name="BossEnemy" instance=ExtResource( 1 )]
+script = ExtResource( 8 )
+MAX_SPEED = 70
+ACCELERATION = 80
+CHASE_RANGE = 250.0
+
+[node name="Sprite" parent="." index="0"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Body" type="Sprite" parent="Sprite" index="0"]
 show_behind_parent = true
@@ -1593,6 +1604,12 @@ shape = SubResource( 2 )
 
 [node name="EnemyStatsManager" parent="." index="5"]
 MAX_HP = 100
+
+[node name="RayCastRightWall" type="RayCast2D" parent="." index="6"]
+
+[node name="RayCastLeftWall" type="RayCast2D" parent="." index="7"]
+
+[node name="FireTimer" type="Timer" parent="." index="8"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]
