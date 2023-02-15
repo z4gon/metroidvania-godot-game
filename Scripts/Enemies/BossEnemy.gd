@@ -26,7 +26,7 @@ func chase_player(delta):
 
 		var max_angle = (linear_velocity.x / MAX_SPEED) * 10 # magic number to tilt the enemy
 		rotation_degrees = lerp(rotation_degrees, max_angle, 0.3)
-		
+
 		stop_on_walls()
 
 func distance_to_player() -> Vector2:
@@ -44,7 +44,7 @@ func stop_on_walls():
 	var on_left_wall = ray_cast_left_wall.is_colliding() and linear_velocity.x < 0
 	
 	if on_left_wall or on_right_wall:
-		linear_velocity.x *= 0.5
+		linear_velocity.x *= -0.5
 
 func _on_FireTimer_timeout():
 	fire_bullet()

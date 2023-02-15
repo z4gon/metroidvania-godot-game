@@ -1422,7 +1422,7 @@ length = 31.0
 script = ExtResource( 8 )
 MAX_SPEED = 70
 ACCELERATION = 80
-CHASE_RANGE = 250.0
+CHASE_RANGE = 150.0
 BULLET_SPEED = 50.0
 SPREAD_ANGLE = 30.0
 
@@ -1608,11 +1608,19 @@ shape = SubResource( 2 )
 MAX_HP = 100
 
 [node name="RayCastRightWall" type="RayCast2D" parent="." index="6"]
+position = Vector2( 0, -6 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+collision_mask = 2
 
 [node name="RayCastLeftWall" type="RayCast2D" parent="." index="7"]
+position = Vector2( 0, -6 )
+enabled = true
+cast_to = Vector2( -10, 0 )
+collision_mask = 2
 
 [node name="FireTimer" type="Timer" parent="." index="8"]
-wait_time = 0.4
+wait_time = 0.6
 autostart = true
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]

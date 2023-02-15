@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/World/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/DoorConnections/00_door_01.tres" type="Resource" id=3]
 [ext_resource path="res://Scenes/Enemies/WalkingEnemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Enemies/BossEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/World/Spikes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Enemies/CrawlingEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Enemies/PlantEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/World/TileMap.tscn" type="PackedScene" id=10]
@@ -100,7 +101,64 @@ position = Vector2( -89, 80 )
 rotation = 3.14159
 INITIAL_WALK_DIRECTION = -1
 
-[node name="BossEnemy" parent="." index="12" instance=ExtResource( 5 )]
+[node name="Spikes" parent="." index="12" instance=ExtResource( 6 )]
+position = Vector2( 200, -136 )
+rotation = 1.57079
+
+[node name="Spikes2" parent="." index="13" instance=ExtResource( 6 )]
+position = Vector2( 200, -120 )
+rotation = 1.57079
+
+[node name="Spikes3" parent="." index="14" instance=ExtResource( 6 )]
+position = Vector2( 200, -104 )
+rotation = 1.57079
+
+[node name="Spikes4" parent="." index="15" instance=ExtResource( 6 )]
+position = Vector2( 200, -88 )
+rotation = 1.57079
+
+[node name="Spikes5" parent="." index="16" instance=ExtResource( 6 )]
+position = Vector2( 200, -72 )
+rotation = 1.57079
+
+[node name="Spikes6" parent="." index="17" instance=ExtResource( 6 )]
+position = Vector2( 200, -56 )
+rotation = 1.57079
+
+[node name="Spikes14" parent="." index="18" instance=ExtResource( 6 )]
+position = Vector2( 168, -64 )
+rotation = -1.5708
+
+[node name="Spikes7" parent="." index="19" instance=ExtResource( 6 )]
+position = Vector2( 408, -136 )
+rotation = -1.5708
+
+[node name="Spikes8" parent="." index="20" instance=ExtResource( 6 )]
+position = Vector2( 408, -120 )
+rotation = -1.5708
+
+[node name="Spikes9" parent="." index="21" instance=ExtResource( 6 )]
+position = Vector2( 408, -104 )
+rotation = -1.5708
+
+[node name="Spikes10" parent="." index="22" instance=ExtResource( 6 )]
+position = Vector2( 408, -88 )
+rotation = -1.5708
+
+[node name="Spikes11" parent="." index="23" instance=ExtResource( 6 )]
+position = Vector2( 408, -72 )
+rotation = -1.5708
+
+[node name="Spikes12" parent="." index="24" instance=ExtResource( 6 )]
+position = Vector2( 408, -56 )
+rotation = -1.5708
+
+[node name="Spikes13" parent="." index="25" instance=ExtResource( 6 )]
+position = Vector2( 408, -40 )
+rotation = -1.5708
+
+[node name="BossEnemy" parent="." index="26" instance=ExtResource( 5 )]
 position = Vector2( 320, -64 )
+CHASE_RANGE = 150.0
 
 [editable path="MovingPlatform2"]
