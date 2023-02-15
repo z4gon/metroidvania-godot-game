@@ -13,7 +13,7 @@ func _process(delta):
 func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	queue_free()
 
-func _on_HitBox_body_entered(_body: RigidBody2D):
+func _on_HitBox_body_entered(_body: PhysicsBody2D):
 	explode()
 
 func _on_HitBox_area_entered(_hurtBox: Area2D):

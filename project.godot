@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Player/PlayerBullet.gd"
 }, {
+"base": "Projectile",
+"class": "PlayerMissile",
+"language": "GDScript",
+"path": "res://Scripts/Player/PlayerMissile.gd"
+}, {
 "base": "Resource",
 "class": "PlayerStats",
 "language": "GDScript",
@@ -66,6 +71,7 @@ _global_script_class_icons={
 "HurtBox": "",
 "Player": "",
 "PlayerBullet": "",
+"PlayerMissile": "",
 "PlayerStats": "",
 "PlayerStatsManager": "",
 "Projectile": "",
@@ -173,6 +179,7 @@ fire_alt={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="HurtBoxPlayer"
 2d_physics/layer_5="HurtBoxEnemies"
+2d_physics/layer_6="Bricks"
 
 [physics]
 

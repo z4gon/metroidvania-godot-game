@@ -18,7 +18,7 @@ func chase_player(player, delta):
 		# accelerate
 		var direction = distance_to_player.normalized()
 		linear_velocity += direction * ACCELERATION * delta
-		linear_velocity = linear_velocity.clamped(MAX_SPEED)
+		linear_velocity = linear_velocity.limit_length(MAX_SPEED)
 
 		# animations
 		sprite.flip_h = global_position < player.global_position

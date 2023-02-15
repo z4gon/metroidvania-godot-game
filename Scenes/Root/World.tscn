@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Root/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scenes/Enemies/FlyingEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Enemies/PlantEnemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Enemies/CrawlingEnemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/World/Brick.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -134,6 +135,12 @@ INITIAL_WALK_DIRECTION = -1
 position = Vector2( 95, 224 )
 rotation = 3.14159
 INITIAL_WALK_DIRECTION = -1
+
+[node name="Brick" parent="." instance=ExtResource( 12 )]
+position = Vector2( 320, 144 )
+
+[node name="Brick2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 336, 192 )
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]

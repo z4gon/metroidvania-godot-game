@@ -51,6 +51,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Fire Missile](#fire-missile)
 		- [Knockback](#knockback)
 	- [Player Missiles UI](#player-missiles-ui)
+	- [Missile Destroyable Exlusives](#missile-destroyable-exlusives)
   
 ## Screenshots
 
@@ -815,4 +816,40 @@ func on_player_stats_set(player_stats):
 	
 func on_player_missiles_changed(current_count):
 	label.text = "%s" % current_count
+```
+
+## Missile Destroyable Exlusives
+
+- Some elements that can only be destroyed by missiles.
+- Create a dedicated 2D physics layer for them.
+- Extend the `Projectile` class to write custom overrides in `PlayerMissile`
+- Call the super class after executing the custom code.
+
+```py
+class_name Projectile
+
+... 
+
+func _on_HitBox_body_entered(_body: PhysicsBody2D):
+	explode()
+
+func explode():
+	Utils.instantiate(self, ExplosionVFX, global_position)
+	queue_free()
+```
+
+```py
+extends Projectile
+
+class_name PlayerMissile
+
+const BRICKS_LAYER_BIT = 5
+
+# override
+func _on_HitBox_body_entered(body):
+	var body_is_brick = body.get_collision_layer_bit(BRICKS_LAYER_BIT)
+	if body_is_brick:
+		body.queue_free()
+
+	._on_HitBox_body_entered(body)
 ```
