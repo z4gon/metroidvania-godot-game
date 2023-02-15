@@ -8,6 +8,6 @@ export (bool) var active = true
 
 onready var events_bus = EventsBus
 
-func _on_Door_body_entered(body):
+func _on_Door_body_entered(_body):
 	active = false
 	events_bus.trigger("player_entered_door", { door = self })
