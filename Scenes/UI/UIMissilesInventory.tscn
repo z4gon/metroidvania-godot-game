@@ -5,6 +5,7 @@
 [ext_resource path="res://Scripts/UI/UIMissilesInventory.gd" type="Script" id=3]
 
 [node name="UIMissilesInventory" type="HBoxContainer"]
+visible = false
 margin_right = 14.0
 margin_bottom = 10.0
 custom_constants/separation = 1

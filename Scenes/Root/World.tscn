@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Root/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/Enemies/PlantEnemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Enemies/CrawlingEnemy.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/World/Brick.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Powerups/MissilePowerup.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -141,6 +142,24 @@ position = Vector2( 328, 152 )
 
 [node name="Brick2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 344, 200 )
+
+[node name="MissilePowerup" parent="." instance=ExtResource( 13 )]
+position = Vector2( 48, 240 )
+
+[node name="MissilePowerup2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 256, 40 )
+
+[node name="MissilePowerup3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 48, 144 )
+
+[node name="MissilePowerup4" parent="." instance=ExtResource( 13 )]
+position = Vector2( 384, 176 )
+
+[node name="MissilePowerup5" parent="." instance=ExtResource( 13 )]
+position = Vector2( 472, 240 )
+
+[node name="MissilePowerup6" parent="." instance=ExtResource( 13 )]
+position = Vector2( 512, 160 )
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]

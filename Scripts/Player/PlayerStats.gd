@@ -2,14 +2,20 @@ extends Resource
 
 class_name PlayerStats
 
-export (int) var MAX_MISSILES = 300
+# hp
 export (int) var MAX_HP = 4
 var hp = MAX_HP setget set_hp
-var missiles = 3 setget set_missiles
 
+# missiles
+export (int) var MAX_MISSILES = 300
+var missiles = 0 setget set_missiles
+var missiles_unlocked = false
+
+# signals
 signal player_died
 signal player_hp_changed(current_hp)
 signal player_missiles_changed(current_count)
+signal player_missiles_unlocked
 
 func set_hp(value: int):
 	hp = clamp(value, 0, MAX_HP)
@@ -20,3 +26,7 @@ func set_hp(value: int):
 func set_missiles(value: int):
 	missiles = clamp(value, 0, MAX_MISSILES)
 	emit_signal("player_missiles_changed", missiles)
+	
+	if not missiles_unlocked:
+		missiles_unlocked = true
+		emit_signal("player_missiles_unlocked")

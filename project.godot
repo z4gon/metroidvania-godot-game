@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Player/PlayerStatsManager.gd"
 }, {
+"base": "Area2D",
+"class": "Powerup",
+"language": "GDScript",
+"path": "res://Scripts/Powerups/Powerup.gd"
+}, {
 "base": "Node2D",
 "class": "Projectile",
 "language": "GDScript",
@@ -74,6 +79,7 @@ _global_script_class_icons={
 "PlayerMissile": "",
 "PlayerStats": "",
 "PlayerStatsManager": "",
+"Powerup": "",
 "Projectile": "",
 "WalkingEnemy": ""
 }
@@ -180,6 +186,7 @@ fire_alt={
 2d_physics/layer_4="HurtBoxPlayer"
 2d_physics/layer_5="HurtBoxEnemies"
 2d_physics/layer_6="Bricks"
+2d_physics/layer_7="Powerups"
 
 [physics]
 

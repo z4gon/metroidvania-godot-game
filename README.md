@@ -52,6 +52,8 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Knockback](#knockback)
 	- [Player Missiles UI](#player-missiles-ui)
 	- [Missile Destroyable Exlusives](#missile-destroyable-exlusives)
+	- [Powerup](#powerup)
+		- [Missile Powerup](#missile-powerup)
   
 ## Screenshots
 
@@ -853,3 +855,19 @@ func _on_HitBox_body_entered(body):
 
 	._on_HitBox_body_entered(body)
 ```
+
+## Powerup
+
+- Create a base scene called `Powerup` using an `Area2D`
+  - Add a `Sprite` and a `CollisionShape2D`
+  - Add a script to use as base as well.
+    - Make the powerup to `queue_free` on collision with bodies.
+- Add a new physics 2D layer called `Powerups`
+  - Make the `Powerups` colliders be in this layer.
+  - Make the `Player` to collide with this layer.
+
+### Missile Powerup
+
+- Inherit the `Powerup` scene and create the `MissilePowerup` also extend the script.
+  - Make the `MissilePowerup` script to increase the player stats misile count by 1
+  - Make the `PlayerStats` also have a signal and a variable to communicate to the UI that the missiles have been unlocked.
