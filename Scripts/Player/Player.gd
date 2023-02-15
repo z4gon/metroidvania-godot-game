@@ -217,3 +217,7 @@ func update_animations():
 		PLAYER_STATE.WALL_SLIDING:
 			sprite.scale.x = -wall_collision_sign if wall_collision_sign != 0 else sprite.scale.x
 			animator.play("WallSlide")
+
+# knockback effect
+func _on_PlayerGun_missile_fired(missile_velocity):
+	linear_velocity += -missile_velocity * 0.4

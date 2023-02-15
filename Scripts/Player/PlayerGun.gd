@@ -12,6 +12,8 @@ var Utils = preload("res://Scripts/Utils.gd")
 var PlayerBullet = preload("res://Scenes/Player/PlayerBullet.tscn")
 var PlayerMissile = preload("res://Scenes/Player/PlayerMissile.tscn")
 
+signal missile_fired(missile_velocity)
+
 func _process(_delta):
 	point_to_mouse()
 	fire_bullet()
@@ -34,3 +36,5 @@ func fire_missile():
 		missile.linear_velocity = Vector2.RIGHT.rotated(rotation) * MISSILE_SPEED
 		missile.linear_velocity.x *= parent.scale.x # the sprite is flipped
 		missile.rotation = missile.linear_velocity.angle()
+		
+		emit_signal("missile_fired", missile.linear_velocity)

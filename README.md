@@ -49,6 +49,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Player Missile](#player-missile)
 		- [Missile Scene](#missile-scene)
 		- [Fire Missile](#fire-missile)
+		- [Knockback](#knockback)
   
 ## Screenshots
 
@@ -745,4 +746,23 @@ func fire_missile():
 		missile.linear_velocity = Vector2.RIGHT.rotated(rotation) * MISSILE_SPEED
 		missile.linear_velocity.x *= parent.scale.x # the sprite is flipped
 		missile.rotation = missile.linear_velocity.angle()
+```
+
+### Knockback
+
+- Emit a signal `missile_fired` from the `PlayerGun`, with the `missile_velocity`
+- Connect this to the `Player` and add the opposite velocity to the kinematic rigid body, to create a kockback effect.
+
+```py
+signal missile_fired(missile_velocity)
+
+func fire_missile():
+	...
+	emit_signal("missile_fired", missile.linear_velocity)
+```
+
+```py
+# knockback effect
+func _on_PlayerGun_missile_fired(missile_velocity):
+	linear_velocity += -missile_velocity * 0.4
 ```
