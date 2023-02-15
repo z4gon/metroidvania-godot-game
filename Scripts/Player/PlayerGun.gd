@@ -31,10 +31,12 @@ func fire_bullet():
 		fire_bullet_timer.start()
 
 func fire_missile():
-	if Input.is_action_just_pressed("fire_alt"):
+	if Input.is_action_just_pressed("fire_alt") and Global.player_stats.missiles > 0:
 		var missile = Utils.instantiate(self, PlayerMissile, fire_origin.global_position)
 		missile.linear_velocity = Vector2.RIGHT.rotated(rotation) * MISSILE_SPEED
 		missile.linear_velocity.x *= parent.scale.x # the sprite is flipped
 		missile.rotation = missile.linear_velocity.angle()
+		
+		Global.player_stats.missiles -= 1
 		
 		emit_signal("missile_fired", missile.linear_velocity)

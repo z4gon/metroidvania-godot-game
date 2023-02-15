@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
+MAX_MISSILES = 300
 MAX_HP = 4

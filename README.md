@@ -50,6 +50,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 		- [Missile Scene](#missile-scene)
 		- [Fire Missile](#fire-missile)
 		- [Knockback](#knockback)
+	- [Player Missiles UI](#player-missiles-ui)
   
 ## Screenshots
 
@@ -765,4 +766,53 @@ func fire_missile():
 # knockback effect
 func _on_PlayerGun_missile_fired(missile_velocity):
 	linear_velocity += -missile_velocity * 0.4
+```
+
+## Player Missiles UI
+
+- Similar to the `UIHealthMeter`
+- Connect to the `Global` `PlayerStats` as soon as they are ready.
+- React to changes to the missile count and update the UI.
+- Use a `HBoxContainer`, a `TextureRect` and a `Label`
+- In the `PlayerGun` only fire if therea re missiles remaining, and after firing, update the player stats.
+
+```py
+# Player Stats
+
+export (int) var MAX_MISSILES = 300
+var missiles = 3 setget set_missiles
+
+signal player_missiles_changed(current_count)
+
+func set_missiles(value: int):
+	missiles = clamp(value, 0, MAX_MISSILES)
+	emit_signal("player_missiles_changed", missiles)
+```
+
+```py
+# Player Gun
+
+func fire_missile():
+	if Input.is_action_just_pressed("fire_alt") and Global.player_stats.missiles > 0:
+		...
+
+		Global.player_stats.missiles -= 1
+		
+		emit_signal("missile_fired", missile.linear_velocity)
+```
+
+```py
+# Missiles UI
+
+onready var label = $Label
+
+func _ready():
+	var _error = Global.connect("player_stats_set", self, "on_player_stats_set")
+	
+func on_player_stats_set(player_stats):
+	label.text = "%s" % player_stats.missiles
+	var _error = player_stats.connect("player_missiles_changed", self, "on_player_missiles_changed")
+	
+func on_player_missiles_changed(current_count):
+	label.text = "%s" % current_count
 ```
