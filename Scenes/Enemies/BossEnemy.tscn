@@ -1423,6 +1423,8 @@ script = ExtResource( 8 )
 MAX_SPEED = 70
 ACCELERATION = 80
 CHASE_RANGE = 250.0
+BULLET_SPEED = 50.0
+SPREAD_ANGLE = 30.0
 
 [node name="Sprite" parent="." index="0"]
 __meta__ = {
@@ -1610,6 +1612,10 @@ MAX_HP = 100
 [node name="RayCastLeftWall" type="RayCast2D" parent="." index="7"]
 
 [node name="FireTimer" type="Timer" parent="." index="8"]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]
