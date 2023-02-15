@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/VFX/BigExplosionVFX.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/VFX/DustVFX.tscn" type="PackedScene" id=2]
+
+[node name="EnemyDeathVFX" type="Node2D"]
+position = Vector2( 2, 2 )
+script = ExtResource( 1 )
+
+[node name="DustVFX" parent="." instance=ExtResource( 2 )]
+
+[node name="DustVFX2" parent="." instance=ExtResource( 2 )]
+position = Vector2( -4, -6 )
+
+[node name="DustVFX3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3, -7 )
+
+[node name="DustVFX4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 10, -3 )
+
+[node name="DustVFX5" parent="." instance=ExtResource( 2 )]
+position = Vector2( -5, -13 )
+
+[node name="DustVFX6" parent="." instance=ExtResource( 2 )]
+position = Vector2( -9, -1 )
+
+[node name="DustVFX7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 8, -12 )
+
+[node name="DustVFX8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1, 9 )
+
+[node name="DustVFX9" parent="." instance=ExtResource( 2 )]
+position = Vector2( 8, 4 )
+
+[node name="DustVFX10" parent="." instance=ExtResource( 2 )]
+position = Vector2( -14, 3 )
+
+[node name="DustVFX11" parent="." instance=ExtResource( 2 )]
+position = Vector2( -12, -7 )
+
+[node name="DustVFX12" parent="." instance=ExtResource( 2 )]
+position = Vector2( -7, 7 )
+
+[connection signal="tree_exited" from="DustVFX12" to="." method="_on_DustVFX_tree_exited"]

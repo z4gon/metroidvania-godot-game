@@ -3,7 +3,7 @@ extends KinematicBody2D
 class_name Enemy
 
 var Utils = preload("res://Scripts/Utils.gd")
-var EnemyDeathVFX = preload("res://Scenes/VFX/EnemyDeathVFX.tscn")
+var BigExplosionVFX = preload("res://Scenes/VFX/BigExplosionVFX.tscn")
 
 export (int) var MAX_SPEED = 15
 var linear_velocity = Vector2.ZERO
@@ -18,4 +18,4 @@ func _on_EnemyStats_enemy_died():
 	queue_free()
 
 func spawn_death_vfx():
-	Utils.instantiate(self, EnemyDeathVFX, global_position)
+	Utils.instantiate(self, BigExplosionVFX, global_position)

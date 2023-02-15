@@ -137,10 +137,10 @@ rotation = 3.14159
 INITIAL_WALK_DIRECTION = -1
 
 [node name="Brick" parent="." instance=ExtResource( 12 )]
-position = Vector2( 320, 144 )
+position = Vector2( 328, 152 )
 
 [node name="Brick2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 336, 192 )
+position = Vector2( 344, 200 )
 
 [editable path="Player"]
 [editable path="Player/HurtBox"]
