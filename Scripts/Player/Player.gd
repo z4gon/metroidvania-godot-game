@@ -222,5 +222,5 @@ func update_animations():
 func _on_PlayerGun_missile_fired(missile_velocity):
 	linear_velocity += -missile_velocity * 0.4
 
-func save():
+func get_save_data():
 	return SaveSystem.get_basic_save_data(self)

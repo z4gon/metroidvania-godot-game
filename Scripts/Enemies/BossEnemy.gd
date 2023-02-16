@@ -13,6 +13,9 @@ export (float) var CHASE_RANGE = 100.0
 export (float) var BULLET_SPEED = 50.0
 export (float) var SPREAD_ANGLE = 30.0
 
+func _ready():
+	load_from_save()
+
 func _physics_process(delta):
 	chase_player(delta)
 
@@ -54,3 +57,11 @@ func fire_bullet():
 		var bullet = Utils.instantiate(self, EnemyBullet, global_position)
 		bullet.linear_velocity = Vector2.DOWN * BULLET_SPEED
 		bullet.linear_velocity = bullet.linear_velocity.rotated(deg2rad(rand_range(-SPREAD_ANGLE/2, SPREAD_ANGLE/2)))
+		
+func die():
+	SaveSystem.game_state.boss_killed = true
+	.die()
+
+func load_from_save():
+	if SaveSystem.game_state.boss_killed:
+		queue_free()

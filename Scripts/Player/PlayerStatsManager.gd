@@ -11,6 +11,7 @@ var is_invincible = false setget set_is_invincible
 func _ready():
 	Global.player_stats = stats
 	stats.connect("player_died", self, "on_player_died")
+	load_stats_from_save()
 
 func set_is_invincible(value):
 	is_invincible = value
@@ -24,3 +25,9 @@ func _on_HurtBox_hit(damage: int):
 
 func on_player_died():
 	get_parent().queue_free()
+
+func load_stats_from_save():
+	if not SaveSystem.scheduled_to_load:
+		return
+		
+	Global.player_stats.load_from_save_system()

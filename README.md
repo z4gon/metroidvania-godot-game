@@ -66,6 +66,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Load Game](#load-game)
 		- [Connect Camera to Player](#connect-camera-to-player)
 		- [Save Level](#save-level)
+	- [Save/Load Game State](#saveload-game-state)
   
 ## Screenshots
 
@@ -1060,3 +1061,110 @@ func load_world_from_save():
 
 - Make `Level` be in grou "Persists".
 - When loading the World, make sure to use the loaded level.
+
+## Save/Load Game State
+
+```py
+# Save System
+
+var game_state = {
+	"player_stats": {},
+	"boss_killed": false
+}
+
+func save_game():
+	...
+	
+	# game state
+	file.store_line(to_json(game_state))
+	
+	...
+	
+func load_game():
+	...
+	
+	# game state
+	if not file.eof_reached():
+		game_state = parse_json(file.get_line())
+		
+	...
+```
+
+```py
+# Boss Enemy
+
+func _ready():
+	load_from_save()
+
+...
+
+func die():
+	SaveSystem.game_state.boss_killed = true
+	.die()
+
+func load_from_save():
+	if SaveSystem.game_state.boss_killed:
+		queue_free()
+```
+
+```py
+# Level 02
+
+onready var door_block : TileMap = $DoorBlock
+onready var door_block_trigger : Trigger = $DoorBlockTrigger
+
+func _ready():
+	load_from_save()
+
+...
+
+func load_from_save():
+	if SaveSystem.game_state.boss_killed:
+		door_block.queue_free()
+		door_block_trigger.queue_free()
+```
+
+```py
+# Player Stats
+
+func set_hp(value: int):
+	...
+		
+	commit_to_save_system()
+
+func set_missiles(value: int):
+	...
+		
+	commit_to_save_system()
+
+func commit_to_save_system():
+	SaveSystem.game_state.player_stats = get_save_data()
+	
+func load_from_save_system():
+	var stats = SaveSystem.game_state.player_stats
+	
+	if stats.keys().size() > 0:
+		set_hp(stats.hp)
+		set_missiles(stats.missiles)
+
+func get_save_data():
+	return {
+		"hp": hp,
+		"missiles": missiles,
+		"missiles_unlocked": missiles_unlocked,
+	}
+```
+
+```py
+# Player Stats Manager
+func _ready():
+	...
+
+	load_stats_from_save()
+
+func load_stats_from_save():
+	if not SaveSystem.scheduled_to_load:
+		return
+		
+	Global.player_stats.load_from_save_system()
+```

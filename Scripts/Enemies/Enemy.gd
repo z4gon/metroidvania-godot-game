@@ -16,6 +16,9 @@ func _on_HurtBox_hit(damage: float):
 	stats.hp -= damage 
 
 func _on_EnemyStats_enemy_died():
+	die()
+	
+func die():
 	emit_signal("died")
 	spawn_death_vfx()
 	queue_free()

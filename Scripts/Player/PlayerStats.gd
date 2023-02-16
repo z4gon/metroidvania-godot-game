@@ -22,6 +22,8 @@ func set_hp(value: int):
 	emit_signal("player_hp_changed", hp)
 	if hp <= 0:
 		emit_signal("player_died")
+		
+	commit_to_save_system()
 
 func set_missiles(value: int):
 	missiles = clamp(value, 0, MAX_MISSILES)
@@ -30,3 +32,22 @@ func set_missiles(value: int):
 	if not missiles_unlocked:
 		missiles_unlocked = true
 		emit_signal("player_missiles_unlocked")
+		
+	commit_to_save_system()
+
+func commit_to_save_system():
+	SaveSystem.game_state.player_stats = get_save_data()
+	
+func load_from_save_system():
+	var stats = SaveSystem.game_state.player_stats
+	
+	if stats.keys().size() > 0:
+		set_hp(stats.hp)
+		set_missiles(stats.missiles)
+
+func get_save_data():
+	return {
+		"hp": hp,
+		"missiles": missiles,
+		"missiles_unlocked": missiles_unlocked,
+	}

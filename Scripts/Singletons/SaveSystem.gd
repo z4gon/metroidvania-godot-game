@@ -5,13 +5,21 @@ var scheduled_to_load = false
 const SAVE_FILE_PATH : String = "user://save_game.save"
 const NODES_GROUP_TO_PERSIST : String = "Persists"
 
+var game_state = {
+	"player_stats": {},
+	"boss_killed": false
+}
+
 func save_game():
 	var file = File.new()
 	file.open(SAVE_FILE_PATH, File.WRITE)
 	
+	# game state
+	file.store_line(to_json(game_state))
+	
 	var persisting_nodes = get_tree().get_nodes_in_group(NODES_GROUP_TO_PERSIST)
 	for node in persisting_nodes:
-		var node_data = node.save()
+		var node_data = node.get_save_data()
 		file.store_line(to_json(node_data))
 	
 	file.close()
@@ -27,6 +35,10 @@ func load_game():
 		
 	file.open(SAVE_FILE_PATH, File.READ)
 	
+	# game state
+	if not file.eof_reached():
+		game_state = parse_json(file.get_line())
+		
 	# recreate nodes
 	while not file.eof_reached():
 		var node_data = parse_json(file.get_line())
