@@ -14,4 +14,4 @@ func _on_QuitButton_pressed():
 	get_tree().quit()
 
 func show_world():
-	var _error = get_tree().change_scene("res://Scenes/Root/World.tscn")
+	var _error = get_tree().change_scene("res://Scenes/World/World.tscn")

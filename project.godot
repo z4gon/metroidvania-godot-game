@@ -116,9 +116,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://Scripts/Root/Global.gd"
-EventsBus="*res://Scripts/Root/EventsBus.gd"
-SaveSystem="*res://Scripts/SaveSystem.gd"
+Global="*res://Scripts/Singletons/Global.gd"
+EventsBus="*res://Scripts/Singletons/EventsBus.gd"
+SaveSystem="*res://Scripts/Singletons/SaveSystem.gd"
 
 [display]
 
