@@ -158,7 +158,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Persists"]]
 collision_mask = 194
 script = ExtResource( 2 )
 __meta__ = {
