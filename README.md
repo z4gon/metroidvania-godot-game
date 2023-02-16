@@ -1064,6 +1064,12 @@ func load_world_from_save():
 
 ## Save/Load Game State
 
+```json
+{"boss_killed":true,"player_stats":{"hp":2,"missiles":7,"missiles_unlocked":true}}
+{"filename":"res://Scenes/Player/Player.tscn","parent":"/root/World","position_x":266.649841,"position_y":116.995621}
+{"filename":"res://Scenes/Levels/Level_02.tscn","parent":"/root/World","position_x":0,"position_y":0}
+```
+
 ```py
 # Save System
 
