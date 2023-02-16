@@ -41,9 +41,16 @@ func commit_to_save_system():
 func load_from_save_system():
 	var stats = SaveSystem.game_state.player_stats
 	
+	missiles_unlocked = false
 	if stats.keys().size() > 0:
 		set_hp(stats.hp)
 		set_missiles(stats.missiles)
+
+func reset_for_new_game():
+	print_debug("reset_for_new_game")
+	hp = MAX_HP
+	missiles = 0
+	commit_to_save_system()
 
 func get_save_data():
 	return {

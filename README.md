@@ -69,6 +69,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Save/Load Game State](#saveload-game-state)
 	- [Pooled SFX System](#pooled-sfx-system)
 	- [Music](#music)
+	- [Game Over Screen](#game-over-screen)
   
 ## Screenshots
 
@@ -1254,3 +1255,7 @@ func play_music():
 func _on_AudioStreamPlayer_finished():
 	play_music()
 ```
+
+## Game Over Screen
+
+- Implement the screen and also all the needed changes to either reset the game to start fresh, or load the needed data before building the world.

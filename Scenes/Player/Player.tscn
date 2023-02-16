@@ -237,5 +237,6 @@ collision_mask = 2
 [connection signal="missile_fired" from="Sprite/PlayerGun" to="." method="_on_PlayerGun_missile_fired"]
 [connection signal="timeout" from="DustVFXSpawner/Timer" to="DustVFXSpawner" method="_on_Timer_timeout"]
 [connection signal="hit" from="HurtBox" to="PlayerStatsManager" method="_on_HurtBox_hit"]
+[connection signal="player_died" from="PlayerStatsManager" to="." method="_on_PlayerStatsManager_player_died"]
 
 [editable path="HurtBox"]

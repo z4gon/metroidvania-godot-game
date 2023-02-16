@@ -8,6 +8,8 @@ onready var animator = $InvincibilityAnimator
 
 var is_invincible = false setget set_is_invincible
 
+signal player_died
+
 func _ready():
 	Global.player_stats = stats
 	stats.connect("player_died", self, "on_player_died")
@@ -25,7 +27,7 @@ func _on_HurtBox_hit(damage: int):
 		SFX.play("Hurt", -10, rand_range(0.8, 1.1))
 
 func on_player_died():
-	get_parent().queue_free()
+	emit_signal("player_died")
 
 func load_stats_from_save():
 	if not SaveSystem.scheduled_to_load:

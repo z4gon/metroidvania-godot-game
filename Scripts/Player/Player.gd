@@ -229,3 +229,7 @@ func _on_PlayerGun_missile_fired(missile_velocity):
 
 func get_save_data():
 	return SaveSystem.get_basic_save_data(self)
+
+func _on_PlayerStatsManager_player_died():
+	queue_free()
+	var _error = get_tree().change_scene("res://Scenes/UI/Menus/GameOverMenu.tscn")
