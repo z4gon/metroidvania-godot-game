@@ -63,6 +63,8 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Triggers and Door Blocks](#triggers-and-door-blocks)
 	- [Save and Load Game](#save-and-load-game)
 	- [Save Stations](#save-stations)
+	- [Load Game](#load-game)
+		- [Connect Camera to Player](#connect-camera-to-player)
   
 ## Screenshots
 
@@ -1031,3 +1033,24 @@ func load_game():
 - When the player enters the area, it will automatically save the game.
 - In the main menu, when loading a game, mark the save system as loading then show the world.
   - The World will be smart enough to load the save data.
+
+## Load Game
+
+### Connect Camera to Player
+
+```py
+func _ready():
+	...
+	load_world_from_save()
+
+func load_world_from_save():
+	if not SaveSystem.scheduled_to_load:
+		return
+		
+	SaveSystem.load_game()
+	SaveSystem.scheduled_to_load = false
+	
+	# connect the camera
+	var camera_follow = Global.player.get_node("CameraFollow")
+	camera_follow.remote_path = Global.camera.get_path()
+```

@@ -10,10 +10,7 @@ func _ready():
 	Global.camera = camera
 	VisualServer.set_default_clear_color(Color.black)
 	events_bus.register_listener("player_entered_door", self, "on_player_entered_door") 
-	
-	if SaveSystem.scheduled_to_load:
-		SaveSystem.load_game()
-		SaveSystem.scheduled_to_load = false
+	load_world_from_save()
 
 func on_player_entered_door(door: Door):
 	call_deferred("change_level", door)
@@ -41,3 +38,14 @@ func position_player_on_next_level(exit_door: Door, next_level: Level):
 	
 	camera.temporarily_disable_smoothing()
 	camera.global_position = Global.player.global_position
+	
+func load_world_from_save():
+	if not SaveSystem.scheduled_to_load:
+		return
+		
+	SaveSystem.load_game()
+	SaveSystem.scheduled_to_load = false
+	
+	# connect the camera
+	var camera_follow = Global.player.get_node("CameraFollow")
+	camera_follow.remote_path = Global.camera.get_path()
