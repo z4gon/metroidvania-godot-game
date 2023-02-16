@@ -60,6 +60,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Boss Enemy Rigging](#boss-enemy-rigging)
 	- [Boss Enemy Animation](#boss-enemy-animation)
 	- [Boss Enemy Behaviors](#boss-enemy-behaviors)
+	- [Triggers and Door Blocks](#triggers-and-door-blocks)
   
 ## Screenshots
 
@@ -961,3 +962,9 @@ func position_player_on_next_level(exit_door: Door, next_level: Level):
 
 - Implement a movement very similar to the `FlyEnemy`, except for the Boss will only move horizontally and try to position on top of the player.
 - Make the Boss fire `EnemyBullets` at the player if on range.
+
+## Triggers and Door Blocks
+
+- `Area2D` that reacts to the player entering it, and emits a `triggered` signal.
+- Used to block the way out of the boss room.
+- When the boss dies, we remove the block again
