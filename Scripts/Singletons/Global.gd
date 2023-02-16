@@ -3,6 +3,7 @@ extends Node
 var player : Player = null
 var camera : Camera2D = null
 var player_stats : PlayerStats = null setget set_player_stats
+var current_level : Level = null
 
 var broadcast_done = false
 

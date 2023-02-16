@@ -65,6 +65,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Save Stations](#save-stations)
 	- [Load Game](#load-game)
 		- [Connect Camera to Player](#connect-camera-to-player)
+		- [Save Level](#save-level)
   
 ## Screenshots
 
@@ -1054,3 +1055,8 @@ func load_world_from_save():
 	var camera_follow = Global.player.get_node("CameraFollow")
 	camera_follow.remote_path = Global.camera.get_path()
 ```
+
+### Save Level
+
+- Make `Level` be in grou "Persists".
+- When loading the World, make sure to use the loaded level.

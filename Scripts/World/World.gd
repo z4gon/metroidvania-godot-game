@@ -1,7 +1,6 @@
 extends Node
 
 onready var camera : Camera2D = $Camera
-onready var current_level = $Level_00
 
 var Utils = preload("res://Scripts/Utils.gd")
 onready var events_bus = EventsBus
@@ -16,15 +15,15 @@ func on_player_entered_door(door: Door):
 	call_deferred("change_level", door)
 	
 func change_level(door: Door):
-	current_level.visible = false
+	var old_level = Global.current_level
+	old_level.visible = false
 	
 	var NextLevel = load(door.NEXT_LEVEL_FILE_PATH)
-	var next_level : Level = Utils.instantiate(self, NextLevel, current_level.global_position)
+	var next_level : Level = Utils.instantiate(self, NextLevel, old_level.global_position)
 	
 	position_player_on_next_level(door, next_level)
 	
-	current_level.queue_free()
-	current_level = next_level
+	old_level.queue_free()
 
 func position_player_on_next_level(exit_door: Door, next_level: Level):
 	var doors = next_level.get_tree().get_nodes_in_group("Doors")

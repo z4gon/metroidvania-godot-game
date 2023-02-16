@@ -1425,7 +1425,7 @@ __meta__ = {
 }
 MAX_SPEED = 70
 ACCELERATION = 80
-CHASE_RANGE = 150.0
+CHASE_RANGE = 230.0
 BULLET_SPEED = 50.0
 SPREAD_ANGLE = 30.0
 
@@ -1623,7 +1623,7 @@ cast_to = Vector2( -24, 0 )
 collision_mask = 2
 
 [node name="FireTimer" type="Timer" parent="." index="8"]
-wait_time = 0.4
+wait_time = 0.35
 autostart = true
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
