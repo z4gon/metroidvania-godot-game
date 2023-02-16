@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/World/Door.tscn" type="PackedScene" id=2]
@@ -10,6 +10,40 @@
 [ext_resource path="res://Scenes/World/TileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/World/Brick.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Resources/DoorConnections/01_door_02.tres" type="Resource" id=10]
+[ext_resource path="res://Scenes/World/MovingPlatform.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Resources/World/Path2DLeftRight.tres" type="Curve2D" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Move"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Path2D/PathFollow2D:unit_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Path2D/PathFollow2D:unit_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [node name="Level_01" instance=ExtResource( 1 )]
 
@@ -74,3 +108,18 @@ position = Vector2( 200, -48 )
 
 [node name="Brick3" parent="." index="17" instance=ExtResource( 9 )]
 position = Vector2( 200, -32 )
+
+[node name="MovingPlatform" parent="." index="18" instance=ExtResource( 11 )]
+position = Vector2( -160, 8 )
+
+[node name="MovingPlatform2" parent="." index="19" instance=ExtResource( 11 )]
+position = Vector2( 72, -56 )
+
+[node name="Path2D" parent="MovingPlatform2" index="0"]
+curve = ExtResource( 12 )
+
+[node name="AnimationPlayer" parent="MovingPlatform2" index="1"]
+anims/Move = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[editable path="MovingPlatform2"]
