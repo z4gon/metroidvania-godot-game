@@ -22,6 +22,7 @@ func _on_HurtBox_hit(damage: int):
 		stats.hp -= damage
 		animator.play("Blink")
 		events_bus.trigger("player_hit", { offset = 1, duration = .5 })
+		SFX.play("Hurt", -10, rand_range(0.8, 1.1))
 
 func on_player_died():
 	get_parent().queue_free()

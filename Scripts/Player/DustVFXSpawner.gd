@@ -12,6 +12,7 @@ func stop_spawning():
 	timer.stop()
 
 func spawn():
+	SFX.play("Step", -25, rand_range(0.8, 1.1))
 	Utils.instantiate(self, DustVFX, global_position)
 
 func _on_Timer_timeout():

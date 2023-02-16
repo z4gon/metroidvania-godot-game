@@ -19,6 +19,7 @@ func _on_EnemyStats_enemy_died():
 	die()
 	
 func die():
+	SFX.play("EnemyDie", -20, rand_range(0.8, 1.1))
 	emit_signal("died")
 	spawn_death_vfx()
 	queue_free()

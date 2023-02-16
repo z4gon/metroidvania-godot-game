@@ -119,6 +119,7 @@ config/icon="res://icon.png"
 Global="*res://Scripts/Singletons/Global.gd"
 EventsBus="*res://Scripts/Singletons/EventsBus.gd"
 SaveSystem="*res://Scripts/Singletons/SaveSystem.gd"
+SFX="*res://Scenes/Singletons/SFX.tscn"
 
 [display]
 

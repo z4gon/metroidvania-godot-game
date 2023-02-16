@@ -96,6 +96,7 @@ func jump_check():
 		
 func jump():
 	if Input.is_action_just_pressed("ui_up"):
+		play_jump_sfx()
 		linear_velocity.y = -JUMP_SPEED
 		just_jumped = true
 		jump_vfx.spawn()
@@ -107,6 +108,7 @@ func interrupt_jump():
 		
 func air_jump():
 	if Input.is_action_just_pressed("ui_up") and air_jumps > 0:
+		play_jump_sfx()
 		linear_velocity.y = -JUMP_SPEED
 		jump_vfx.spawn()
 		air_jumps -= 1
@@ -189,6 +191,7 @@ func wall_slide_detach_check(delta):
 		
 func wall_slide_jump_check():
 	if Input.is_action_just_pressed("ui_up"):
+		play_jump_sfx()
 		linear_velocity.x = -wall_collision_sign * MAX_HORIZONTAL_SPEED
 		linear_velocity.y = -JUMP_SPEED
 		self.state = PLAYER_STATE.MOVING
@@ -217,7 +220,9 @@ func update_animations():
 		PLAYER_STATE.WALL_SLIDING:
 			sprite.scale.x = -wall_collision_sign if wall_collision_sign != 0 else sprite.scale.x
 			animator.play("WallSlide")
-
+			
+func play_jump_sfx():			
+	SFX.play("Jump", -14, rand_range(0.8, 1.1))
 # knockback effect
 func _on_PlayerGun_missile_fired(missile_velocity):
 	linear_velocity += -missile_velocity * 0.4

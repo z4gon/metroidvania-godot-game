@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/VFX/VFX.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Effects/ExplosionEffect.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/VFX/ExplosionVFX.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Default"
@@ -49,6 +50,7 @@ tracks/0/keys = {
 }
 
 [node name="ExplosionVFX" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
