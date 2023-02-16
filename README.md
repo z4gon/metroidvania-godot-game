@@ -3,10 +3,18 @@ Godot 3.5.x
 
 A basic game made in Godot, following the course: https://heartbeast-gamedev-school.teachable.com/p/1-bit-godot-course
 
+## Screenshots
+
+https://user-images.githubusercontent.com/4588601/219495198-3ee24774-7750-4c37-b553-a6467ced8a3a.mov
+
+https://user-images.githubusercontent.com/4588601/219495222-c6052e06-1612-40ec-99fc-8e019e224c35.mov
+
+https://user-images.githubusercontent.com/4588601/219495231-556da8e3-73ea-4a87-9ce8-c610efea4809.mov
+
 ## Table of Contents
 - [Metroidvania Game](#metroidvania-game)
-	- [Table of Contents](#table-of-contents)
 	- [Screenshots](#screenshots)
+	- [Table of Contents](#table-of-contents)
 	- [Player Movement](#player-movement)
 		- [Slide with Snap](#slide-with-snap)
 		- [Edge Jump](#edge-jump)
@@ -70,9 +78,6 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Pooled SFX System](#pooled-sfx-system)
 	- [Music](#music)
 	- [Game Over Screen](#game-over-screen)
-  
-## Screenshots
-
 
 ## Player Movement
 
