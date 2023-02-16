@@ -62,6 +62,7 @@ A basic game made in Godot, following the course: https://heartbeast-gamedev-sch
 	- [Boss Enemy Behaviors](#boss-enemy-behaviors)
 	- [Triggers and Door Blocks](#triggers-and-door-blocks)
 	- [Save and Load Game](#save-and-load-game)
+	- [Save Stations](#save-stations)
   
 ## Screenshots
 
@@ -1023,3 +1024,10 @@ func load_game():
 	
 	file.close()
 ```
+
+## Save Stations
+
+- Create a simple node that has a collision shape set to the `SaveSations` layer.
+- When the player enters the area, it will automatically save the game.
+- In the main menu, when loading a game, mark the save system as loading then show the world.
+  - The World will be smart enough to load the save data.

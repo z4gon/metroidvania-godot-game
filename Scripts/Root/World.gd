@@ -10,6 +10,10 @@ func _ready():
 	Global.camera = camera
 	VisualServer.set_default_clear_color(Color.black)
 	events_bus.register_listener("player_entered_door", self, "on_player_entered_door") 
+	
+	if SaveSystem.scheduled_to_load:
+		SaveSystem.load_game()
+		SaveSystem.scheduled_to_load = false
 
 func on_player_entered_door(door: Door):
 	call_deferred("change_level", door)

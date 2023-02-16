@@ -4,10 +4,14 @@ func _ready():
 	VisualServer.set_default_clear_color(Color.black)
 
 func _on_StartButton_pressed():
-	var _error = get_tree().change_scene("res://Scenes/Root/World.tscn")
+	show_world()
 
 func _on_LoadButton_pressed():
-	pass # Replace with function body.
+	SaveSystem.scheduled_to_load = true
+	show_world()
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+func show_world():
+	var _error = get_tree().change_scene("res://Scenes/Root/World.tscn")

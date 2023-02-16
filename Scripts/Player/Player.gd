@@ -70,12 +70,6 @@ func _physics_process(delta):
 		
 	update_animations()
 	move()
-	
-	if Input.is_action_just_pressed("save"):
-		SaveSystem.save_game()
-		
-	if Input.is_action_just_pressed("load"):
-		SaveSystem.load_game()
 
 func get_input_vector() -> Vector2:
 	var vec = Vector2.ZERO
@@ -229,10 +223,4 @@ func _on_PlayerGun_missile_fired(missile_velocity):
 	linear_velocity += -missile_velocity * 0.4
 
 func save():
-	var save_dictionary = {
-		"filename": get_filename(),
-		"parent": get_parent().get_path(),
-		"position_x": position.x,
-		"position_y": position.y
-	}
-	return save_dictionary
+	return SaveSystem.get_basic_save_data(self)

@@ -1,5 +1,7 @@
 extends Node
 
+var scheduled_to_load = false
+
 const SAVE_FILE_PATH : String = "user://save_game.save"
 const NODES_GROUP_TO_PERSIST : String = "Persists"
 
@@ -44,3 +46,13 @@ func load_game():
 				new_node.set(property_name, node_data[property_name])
 	
 	file.close()
+
+func get_basic_save_data(node: Node2D):
+	var save_dictionary = {
+		"filename": node.get_filename(),
+		"parent": node.get_parent().get_path(),
+		"position_x": node.position.x,
+		"position_y": node.position.y
+	}
+	return save_dictionary
+	
