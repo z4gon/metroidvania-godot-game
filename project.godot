@@ -120,6 +120,7 @@ Global="*res://Scripts/Singletons/Global.gd"
 EventsBus="*res://Scripts/Singletons/EventsBus.gd"
 SaveSystem="*res://Scripts/Singletons/SaveSystem.gd"
 SFX="*res://Scenes/Singletons/SFX.tscn"
+Music="*res://Scenes/Singletons/Music.tscn"
 
 [display]
 
